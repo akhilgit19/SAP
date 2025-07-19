@@ -34,3 +34,81 @@ Text Tables
 
 Creation of table and text table
 ======================================
+
+First Domain for Iitem ID- ZDITEMID:
+- /nse11
+- domain- ZDITEMID, click on create
+- shortdescription Iteam id
+- datatype (click on on search box and choose NUMC
+- no. characters give 10
+- click on check syntac and activate and save it as local object
+-
+
+Second Domain for Iitem Description- ZDITEMDES:
+- /nse11
+- domain- ZDITEMDESC, click on create
+- shortdescription IteaM Description
+- datatype (click on on search box and choose CHAR
+- no. characters give 40
+- click on check syntac and activate and save it as local object
+
+First Dataelement for item domain-ZDEITEMID:
+- click on datatype - ZDEITEMID
+- click on create
+- choose dataelement
+- short description - item id
+- in domain give ZDITEMID
+- click on field label
+- give item id in all 4 blocks
+- click on syntac check and click on active and click on locla object
+
+Second Dataelement for item domain-ZDEITEMIDesc:
+- click on datatype - ZDEITEMIDESC
+- click on create
+- choose dataelement
+- short description - item description
+- in domain give ZDITEMIDESC
+- click on field label
+- give item Desc in all 4 blocks
+- click on syntac check and click on active and click on locla object
+
+Creation of primary table:
+- ose11
+- databasetable ZTITEM
+- click on create
+- short description: item table - Primary table
+- choose delivery claass - C
+- Databroswer - display/maintanance Allowed
+- click on fields
+-  Field     key  Initi           Dataelement   
+ MANDT         <                   MANDT
+ ITEM ID       <                   ZDEITEMID
+- click on techical settings
+- Data class - choose  APPL2
+- Size category- 0
+- click on save 
+- click on back
+- click on activete and save
+
+Creation of texttable:
+
+-ose11
+- databasetable - ZTITEMT
+- click on create
+- short description: Item Details- Text table
+- delivery class - C
+- Databrowser - Display/Maintenance Allowed
+- click on fields
+-  Filed     key  Initi           Dataelement   
+ MANDT         <                   MANDT
+ SPRAS         <                   SPRAS
+ ITEM ID       <                   ZDEITEMID
+ ITEMSDSC                          ZDEITEMIDESC
+- Click on activate and save as local object
+- Click on technical setting and choose table is language-depndenet but not traansalate
+- dataclass - APPL2
+- Size category -0
+- click on save
+- click  on activate, click on save
+
+Text Table - Assigning Relationship Between Primary Table and Text Table:
