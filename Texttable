@@ -1,0 +1,36 @@
+# SAP
+
+
+
+Text Tables
+=====================
+
+- /nmm01 
+- Material   (click on serach box and select basic data 1)
+- Material 3306
+- description - Testing -english
+- Base unit of measeure -EA
+- Click on save
+  
+- /ose11
+- database table- MARA
+- GOTO - Click on texttable( Now you will see primary key of MARA table + additional languae field
+- Now give MATNR -3306
+
+- /nmm01
+- click on material, click on change, click on basic data-, click on additional data
+- add De - german lanuguae
+
+- /ose11
+- database table- MARA
+- Now give MATNR -3306 (you will see both the records in the texttable)
+
+
+- /ose11
+- click on icon before techinical settings, MATNR -3306
+- click on execute, click on display, click on next screen
+- scroll down you can see MAKTX and MAKTG, 
+
+
+Creation of table and text table
+======================================
