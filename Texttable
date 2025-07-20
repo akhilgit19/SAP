@@ -112,3 +112,49 @@ Creation of texttable:
 - click  on activate, click on save
 
 Text Table - Assigning Relationship Between Primary Table and Text Table:
+-  go to text table , click on foreign key
+- give the name of check table- ZTITEM, CLICK ON create proposal
+- Foregion key field type - choose key fields of a text table
+- cardinality-  1: N
+- click on copy
+- click on activate
+
+To check the relation:
+- go to primary key table, clikc on goto , and click on text table
+
+Text Table - Maintaining Text Into Primary Table and Text Table:
+
+- go to nse11, got to primary key table
+- click on change mode
+- click on utilities- table maintenance generator
+- TALBE/VIEW -ZTITEM
+-  autorization group - &N&
+- Function group -ZTITEM
+- Maintenancy type- one step
+- click on find scrn number on top
+- Maint.screen no  Overiew screen -1
+- click on create and save
+
+- go to nse11, go to text table
+- TALBE/VIEW -ZTITEMT
+-  autorization group - &N&
+- Function group -ZTITEMT
+- Maintenancy type- one step
+- click on find scrn number on top
+- Maint.screen no  Overiew screen -1
+- click on create and save
+
+- Now got to osm30, 
+- table/view  -ZTITEM
+- Click on new entries
+ 01 TEA
+ 02  COFFE
+ 03  MILK
+
+- osm30,
+- table/view ZTITEMT, CLICK on edit
+- table/view  -ZTITEMT
+- You will see logon laungue entries
+- Click on new entries
+-  de  1   TEE
+- 
