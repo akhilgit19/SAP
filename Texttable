@@ -36,6 +36,7 @@ Creation of table and text table
 ======================================
 
 First Domain for Iitem ID- ZDITEMID:
+----------------------------------------
 - /nse11
 - domain- ZDITEMID, click on create
 - shortdescription Iteam id
@@ -45,6 +46,7 @@ First Domain for Iitem ID- ZDITEMID:
 -
 
 Second Domain for Iitem Description- ZDITEMDES:
+----------------------------------------
 - /nse11
 - domain- ZDITEMDESC, click on create
 - shortdescription IteaM Description
@@ -53,6 +55,7 @@ Second Domain for Iitem Description- ZDITEMDES:
 - click on check syntac and activate and save it as local object
 
 First Dataelement for item domain-ZDEITEMID:
+----------------------------------------
 - click on datatype - ZDEITEMID
 - click on create
 - choose dataelement
@@ -63,6 +66,7 @@ First Dataelement for item domain-ZDEITEMID:
 - click on syntac check and click on active and click on locla object
 
 Second Dataelement for item domain-ZDEITEMIDesc:
+----------------------------------------
 - click on datatype - ZDEITEMIDESC
 - click on create
 - choose dataelement
@@ -73,6 +77,7 @@ Second Dataelement for item domain-ZDEITEMIDesc:
 - click on syntac check and click on active and click on locla object
 
 Creation of primary table:
+----------------------------------------
 - ose11
 - databasetable ZTITEM
 - click on create
@@ -91,7 +96,7 @@ Creation of primary table:
 - click on activete and save
 
 Creation of texttable:
-
+----------------------------------------
 -ose11
 - databasetable - ZTITEMT
 - click on create
@@ -112,6 +117,7 @@ Creation of texttable:
 - click  on activate, click on save
 
 Text Table - Assigning Relationship Between Primary Table and Text Table:
+--------------------------------------------------------------------------------
 -  go to text table , click on foreign key
 - give the name of check table- ZTITEM, CLICK ON create proposal
 - Foregion key field type - choose key fields of a text table
@@ -120,9 +126,11 @@ Text Table - Assigning Relationship Between Primary Table and Text Table:
 - click on activate
 
 To check the relation:
+----------------------------------------
 - go to primary key table, clikc on goto , and click on text table
 
 Text Table - Maintaining Text Into Primary Table and Text Table:
+--------------------------------------------------------------------------------
 
 - go to nse11, got to primary key table
 - click on change mode
@@ -154,7 +162,58 @@ Text Table - Maintaining Text Into Primary Table and Text Table:
 - osm30,
 - table/view ZTITEMT, CLICK on edit
 - table/view  -ZTITEMT
-- You will see logon laungue entries
+- You will see logon laungue entries automatically 
 - Click on new entries
 -  de  1   TEE
-- 
+-  de  2   KAFEE
+-  DE  3   MILCH
+-  click on save
+-  you will see both the langueges now in the text teable
+
+Search Help Creation Using Primary Table and Text Table:
+--------------------------------------------------------------------------------
+- nse11 
+- in serach helpt  ZSH_ITEMNO
+- choose elementary search help 
+- short description: search helpt for item number
+- selection method:  ZTITEM
+- Text table  ZTITEMT
+- In the parameter section :
+Search help parameter  IMP EXP Lpos Spos Sdis Dataeleemnnt
+ ITEMID                 <    <   1   1
+ ITEMDSC                <    <   2   2
+- execute
+
+Suppose i need the serach help in programe:
+--------------------------------------------------------------------------------
+- nse38
+- Programe - ZITEM_PRG
+- click on create 
+- title- Items Display Programe
+- type - executable
+- save
+REPORT ZITEM_PRG.
+PARAMETERS: p_item TYPE ZDEITEMID MATCHCODE OBJECT ZSH_ITEMNO.
+- Click on active and run the programe
+- click on selection text choose ddic reference and click on activate
+  execute
+- click on f4 help near itemid , you will see the text table
+
+
+Check Table and Value Table Part1
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
