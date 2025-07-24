@@ -1,7 +1,6 @@
 # SAP
 
 
-
 Text Tables
 =====================
 
@@ -204,16 +203,146 @@ Check Table and Value Table Part1
 ----------------------------------------
 
 
+Order Status table:
+ Oder Number - N(10)
+ Order status- C(1) - Y(Yes)/(No)
+
+Order Vendor Details:
+ Order Number - N(10)
+ Vendor detaikls - c(1) - I(Internal), E(External)
+
+- check table works at field level in foreign key
+- se11
+- database table ZORDSTATUS_28
+- Short description Order status table
+- Delivery class C
+- Databrowseer/table view editing - display/maintenance allowed with restrictions
+- click on Fields
+-  Field     key  Initi           Dataelement   
+ MANDT         <                   MANDT
+ ONO           <                   ZDEONO
+ OSTATHS                           ZDEOSTAT_28 (It will ask for to create dataelement
+
+- click on yes
+- data element- ZDEOSTAT_28
+- short description- order status
+- click on field label
+- short   Ord.stat
+- Medium  Order status
+- Long     Order status
+- Heading   Order status
+- in domain -Zdordstat_28
+- short description -= order status
+- datay type CHAR
+- NO OF CHAR -1
+- click on value range
+  fixed   short description
+   y      Yes
+   n       No
+- click on activate
+- now go to dataelement and activate
+- now go to table and click on techincal setting
+- data class - APPL2
+- SIZE CATEGORY 0
+- CLICK ON SAVE
+- NOW got to back buttong and click on activate
+
+
+
+- se11
+- database table ZORDVENDOR_28
+- CLICK on create
+- short description- Order Vendor details
+- Delivery class C
+- Databrowseer/table view editing - display/maintenance allowed with restrictions
+-  Field     key  Initi           Dataelement   
+ MANDT         <                   MANDT
+ ONO           <                   ZDEONO
+ vendor                            ZDEOVEND_8 (It will ask for to create dataelement
+
+
+- click on yes
+- data element-  ZDEOVEND_8 
+- short description- order vendor
+- click on field label
+- short   Ord.vend
+- Medium  Order vendor
+- Long     Order vendor
+- Heading   Order vendor
+- in domain -ZDOVEND_28
+- short description -= order vendor
+- datay type CHAR
+- NO OF CHAR -1
+- click on value range
+  fixed   short description
+   I      Internal
+   E       External
+- click on activate
+- now go to dataelement and activate
+- now go to table and click on techincal setting
+- data class - APPL2
+- SIZE CATEGORY 0
+- CLICK ON SAVE
+- NOW got to back buttong and click on activate
 
 
 
 
+Now got to ZDON0_28 domain
+- click on edit
+- click on value range
+- In vlaue table - give hearder table  - ZORDH_28
+- CLICK ON activate
+
+-Now got to ZORDVENDOR_28
+- CLICK ON ZONO- click on primary key
+ You will be see a mess as  foreign key does not exist and ask to create a foregin key proposal with 
+  ZORDH_28
+- CLIKC ON K
+- You will be automatically data populated
+- Cardinalaty 1:1
+
+-Now got to ZORDSTATUS_28
+- CLICK ON ZONO- click on primary key
+ You will be see a mess as  foreign key does not exist and ask to create a foregin key proposal with 
+  ZORDH_28
+- CLIKC ON K
+- You will be automatically data populated
+- Cardinalaty 1:1
+
+- click on save, click on activate
+-
+Table maintenance generator:
+----------------------------
+Now go to ZORDVENDOR_28 table
+- se11
+- click on utlities , chosse &NC&
+- FUNCTION ZORDVENDOR_28
+- MAINTENANCE type  - one stpe
+- click on find screen no
+- cick on create 
+
+
+Now go to ZORDSTATUS_28 table
+- se11
+- click on utlities , chosse &NC&
+- FUNCTION ZORDSTATUS_28
+- MAINTENANCE type  - one stpe
+- click on find screen no
+- cick on create 
+
+-/nsm30
+- table view- ZORDSTATUS_28
+- click on maintain
+- click on new entries
+- order no   order stats
+  1              yes
 
 
 
-
-
-
-
-
-
+-/nsm30
+- table view- ZORDVENDOR_28
+- click on maintain
+- click on new entries
+- order no   Vendor
+  1          Internal
