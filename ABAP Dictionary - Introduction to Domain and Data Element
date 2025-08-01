@@ -1,0 +1,219 @@
+ABAP Dictionary - Introduction to Domain and Data Element
+
+1) Data Dictionary is also called ABAP Dictionary or DDIC.
+
+   SE11 -> Transaction code for Data Dictionary or ABAP Dictionary.
+   SE16->  Transaction code for Data Browser.
+   SE16N-> New Version of SE16
+
+2) Domain -> Tells us about the technical characteristics of a Field/Column.
+    Technical characteristics -> Data type, length.
+
+3) Data Element -> How a field/column will be visible to end user?
+
+4) MANDT -> Client number of SAP system.
+
+  Tables having MANDT field are called as client dependent tables or Client-Specific tables..
+  Tables does not have MANDT field are called as Client Independent tables. 
+
+5)  Data browser/Table view maintenace options ->
+    Display/Maintenance allowed
+    Display/Maintenance not allowed
+    Display/Maintenance allowed with restrictions
+
+6) Size Category -> A table can store how many number of records.
+
+
+Order Header Table
+------------------
+Field Description        key      Data type      lenth       Possible values
+Client Number            Y          CLNT              3   
+OrderNumber              Y          NUMC              10
+OrderData                N          DATS               8
+Payment Mode             N          CHAR                1   C= Credit Card, D=DebitCard
+Total Amount             N          CURR            7,2
+Currency                 N          CUKY               5
+
+Order item Table:
+------------------
+Field Description        key      Data type      lenth       Possible values
+client number             Y       CLNT             3
+Order Number              Y       NUMC             10
+Order item Number         Y       NUMC             2
+Order Description         N       CHAR             40
+Item cost                 N       CURR              7,2
+
+Logic:
+Assign the primary foreign key relationship between the tables
+Generate the table maintenenace generator for both the  tables
+insert the following data in to the tables
+
+Creation of Domains for Order header table:
+----------------------------------------------
+Order Header Table
+------------------
+Field Description        key      Data type      lenth       Possible values
+Client Number            Y          CLNT              3   
+OrderNumber              Y          NUMC              10
+OrderData                N          DATS               8
+Payment Mode             N          CHAR                1   C= Credit Card, D=DebitCard
+Total Amount             N          CURR            7,2
+Currency                 N          CUKY               5
+
+
+For order no:
+--------------
+- SE11
+- select domain- ZONO_28 
+- short descp - Order number
+- Data type  NUMC
+- No of character 10
+- click enter
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+ 
+  
+For order date:
+--------------
+- SE11
+- select domain- ZODATE_28 
+- short descp - Order DATE
+- Data type  DATC
+- No of character 8
+- click enter
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+
+For Payment mode:
+--------------
+- SE11
+- select domain- ZPM_28 
+- short descp - Payment Mode
+- Data type  CHARS
+- No of character 1
+- click on value range
+ Fixed    short descript
+   C        Credit card
+   D        Debit card
+   n         netbanknig
+
+- click enter
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+
+
+For Total amount:
+------------------
+- SE11
+- select domain- ZTC 
+- short descp - Total amount
+- Data type  CURRY
+- No of character 7
+- Decimal places 2
+- click enter
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+
+For Total amount:
+------------------
+- SE11
+- select domain- ZCUR_28
+- short descp - CURRENCY
+- Data type  CUKY
+- No of character 5
+- click enter
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+
+
+Creation of Dataelement for Order header table:
+--------------------------------------------------------
+- se11
+- data type  ZDEONO_28
+- click on create
+- Data elment
+- short description odernumber
+-  domain -ZONO_28 
+- data type NUMC
+- Length -10
+- click on field lable
+- short    Order no
+- Medium   Order Number
+- long      Order Number
+- Heading   Order number
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+ 
+
+- se11
+- data type  ZDEDATE_28
+- click on create
+- Data elment
+- short description oderdate
+-  domain -ZODATE_28 
+- data type DATS
+- Length -8
+- click on field lable
+- short    Order date
+- Medium   Order date
+- long      Order date
+- Heading   Order date
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+ 
+
+
+- se11
+- data type  ZDEPM_28
+- click on create
+- Data elment
+- short description PAYMENT MODE
+-  domain -ZPM_28 
+- data type CHAR
+- Length -1
+- click on field lable
+- short    pm
+- Medium   payment mnode
+- long     payment mnode
+- Heading  payment mnode
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+ 
+
+- se11
+- data type  ZDETA_28
+- click on create
+- Data elment
+- short description Total AMount
+-  domain -ZTC 
+- data type Curry
+- Length -7
+- click on field lable
+- short    total amt
+- Medium   total amt
+- long      total amt
+- Heading   total amt
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+ 
+
+- se11
+- data type  ZDECUR_28
+- click on create
+- Data elment
+- short description CURRENCY
+-  domain -ZCUR_28
+- data type cuky
+- Length -5
+- click on field lable
+- short    CURRENCY
+- Medium   CURRENCY
+- long      CURRENCYt
+- Heading   CURRENCY
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+ 
+
+
+
+
+ZONO_28 
+ZODATE_28 
+ZPM_28
+ZTC 
+ZCUR_28
+
+
+ZDEONO_28
+ZDEDATE_28
+ZDEPM_28
