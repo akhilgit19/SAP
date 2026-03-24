@@ -22,24 +22,51 @@
    ( 3 - 3 tier architecture , R- Real) - SAP is a real time architecture.
 
    Layers - Presentation Layer( User Interaction Layer)
-            Application Layer( Writing the programs and applications)
-            Database Layer( To store and retrive the data).
 
-6) SAP Netweaver
+            Application Layer( Writing the programs and applications)
+
+         Dispatcher:
+         All requests that come in from presentation servers are directed first to dispatcher.
+         The dispatcher writes them first to the dispatcher queue.
+         The dispatcher pulls the requests from the queue on a first-in, first-out basis.
+
+
+         Work Process:
+         Each request from the dispatcher is then allocated to the first available work process. 
+         A work process handles one request at a time.
+         A work process needs to address two special memory areas - the user context and the program roll area. 
+
+
+         User Context:
+         The user context is a memory area that contains information about the user.
+         When a user logs on, a user context is allocated for that logon.
+         When a user log off, it is freed.
+
+
+Roll Area
+
+Roll area is a memory area that contains information about the program execution .
+When a program runs, a roll area is allocated for that program.
+The roll area is freed when the program ends.
+
+
+         Database Layer( To store and retrive the data).
+
+7) SAP Netweaver
    SAP NetWeaver(NW) is an integrated technology platform which can support various SAP applications.
    Examples -> SAP ERP(Enterprise Resource Planning)
                SAP CRM( Customer relationship Management)
                SAP SRM( Supply Relationship Management)
                SAP PI( Process Integration).
 
-7) ABAP/4 -> 
+8) ABAP/4 -> 
    Advanced Business Application Programming language.
    It is a 4th generation language.
    ABAP lies on application Layer.
 
  
 
-8) Modules of SAP->
+9) Modules of SAP->
    Functional Modules
    Technical Modules
 
@@ -67,6 +94,7 @@
 
    Transport Request -> It is a Mechanism to transport the objects from one system to another system.
 
+
 11) SAP Logon Configuration:
 
    Description: You can put any description of the system.
@@ -81,6 +109,27 @@
                    during SAP Installation. 
                    It is of 3 characters long.
                    Example : S4H,A4H etc.
+
+
+- In the windows server, you can see app SAP LOGON 770, click on SAP Logo
+- click on new button, click on connection , click on next
+- Description: AB4[SAPSERVER]  (This will come automatically which is concatenation of Systemid and application Server)
+- Application Server : SAPServer
+- Instance Number: 15
+- System ID  : AB4
+- SAProuter String:
+- click on next, click on finish
+- Now you can see ther server entry in the SAP GUI
+- Now right click on the SAPServer  and click on properties to check
+- Now to connect, double click SAPServer
+- You will see as such
+  Client  800
+  User
+  Password
+  Logon language
+- 
+
+
 
 12) ABAP Workbench -> It is a collection of ABAP tools.
    SE38 -> Program/Report
