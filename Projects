@@ -1,0 +1,25 @@
+Types of Projects in SAP
+
+1. Implementation
+
+Implementation - In these types of projects, Customer is implementing SAP for the first time. 
+All Legacy system data needs to be migrated to the SAP system.
+
+
+2. Support
+
+Support - It is also called as Maintenance project.
+Customer is running his business through SAP. Customer requires support for the daily issues,
+tickets, and new change requests (CR).
+
+
+3. UPgrade
+
+Upgrade: In this type of project, customer is moving from older version of SAP to
+higher version of SAP.
+
+
+4. Roll out
+
+Roll out: In this type of project, the existing SAP system is going to implement
+for different countries/region.
