@@ -241,6 +241,22 @@ Examples :
 
 14) User can open a maximum of 6 sessions.
 
+
+Log Off From SAP System 
+
+
+System - Logoff
+Transaction Code - /nend
+Transaction Code - /nex 
+
+
+/nend - Before log off , one confirmation pop-up appears. 
+/nex -  Log off from SAP without confirmation pop-up. 
+
+
+Note to change the theme setting, click on color monitor and clikc on options and click on them
+
+
 15) F4 Help -> It tells us what are the various possible values for any Input field.
     F1 Help -> It gives us the technical information of any field/column.
 
@@ -254,8 +270,20 @@ Examples :
                                  Topic : Concept of Object Navigator, Package, Transport Request
 
 SE80-> Object Navigator
+------------------------------
+You can navigate to any of the object with the help of particular transaction code.
+
+The object navigator is a central point of 
+       entry to the ABAP workbench.
+One can navigate to any workbench 
+      object through object navigator.
+The transaction code for object navigator 
+        is SE80.
+
+
 
 Package -> It is a collection/container for the objects.( Table, Data element, Domains, Structures,Programs etc.)
+--------
 In SAP, every object stored in to a package.
 
 ( Package for local objects : $TMP , local objects can never be transported)
@@ -266,7 +294,62 @@ Transport request -> Medium to transport the objects.
 SE09 -> To create a transport request.( Workbench request)
 
 
+Creating trasport request:
+---------------------------
+- /nse09 in commmand line
+- clic on create
+- select workbench request
+- click  on green tick
+- short description: Development objects(S4AUG13)
+- click on save
+- You can see SAP generated unique number for transport request
 
+Creating Package:
+---------------
+- Now in /ose21
+- package - ZPKG_7
+- click on create
+package -ZPKG_7
+description- development object
+- click on green tick
+- click on own requests
+- choose transport request-Development objects(S4AUG13)
+- click on green tick
+
+
+Creating a table
+-------------------
+- /ose11
+- database table ZTEST_28
+- short descrinbtion - test
+- Delivery class - A
+- click on save
+- package- ZPKG_7
+- click on save
+-  now system prompt for the transport request
+-  click on own request
+-  choose the trasnport request
+-  click on green tick
+-  now got /ose80
+-  you can see your package as one object
+
+Workebend reqeuest
+ |
+  ----800
+       | _______ Local Change reqeust
+                 |
+                  ------------- Modifiable
+                               |________________S4HK90-0401
+                                               |----------------S4HK90-0402
+                                                                |
+                                                               --------PACAKAGE
+                                                                |
+                                                                |
+                                                                |-----Table
+                                                                
+                                                   
+- 
+  Note do not save it as local ojbect it will not become the part of transport request
                       Topic : Main Tables and Transaction codes for Different Modules of SAP
                                   ( Concept of Header and Item Tables)
 
