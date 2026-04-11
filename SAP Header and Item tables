@@ -1,0 +1,107 @@
+1) SAP Sales & Distribution(SD) ->
+   Sales Order Details  
+   Transaction codes - VA01( Sales Order Create)
+                       VA02( Sales Order Change)
+                       VA03( Sales Order Display)    
+
+
+    Tables- VBAK( Sales Document Header)
+           VBAP( Sales document Item)
+
+VBAK,VBAP --> Test case: 50000012
+VBRK,VBRP--> Test case: 900000003
+
+   - /ose11
+   - Database table- VBAK
+   - click on display
+   - you can see short descritipon ( Sales Document: Header Data)
+   - click on contents 
+   - you can pass test cases iun sales dcoument and clikc on execute
+   -you can see header information
+
+
+
+   - /ose11
+   - Database table- VBAP
+   - click on display
+   - you can see short descritipon ( Sales Document: ITEM Data)
+   - click on contents 
+   - you can pass test cases iun sales dcoument and click on execute 
+   -you can see ITEM information
+
+
+
+   Billing Document Details
+   Transaction codes -> VF01( Billing Document Create)
+                        VF02( Billing Document Change)
+                        VF03( Billing Document Display) 
+
+ 
+   Tables -     VBRK(Billing Document Header) 
+                VBRP( Billing Document Item) 
+
+2) SAP Material Management(MM) -> 
+   Material Master   
+   Transaction codes - MM01( Material Create)
+                       MM02( Material Change)
+                       MM03( Material Display)   
+
+
+   Tables - MARA( Material data)
+            MAKT( Material Description)
+
+
+  - /mm01
+  - industroyy setory - retail
+  - Material type- additionals
+  - press enter
+  - choose basic data 1
+  - Material -245
+  - Description - Test- Material
+  - Base unit of measeu- eA
+  - Gross weight 1,00
+  - weight unit- KG
+  - NET weight -1,00
+  - click on save
+  - clic on yes
+  - You can see at the bottome of status bar as Materia  245 created
+Now check the MARA
+  - /nse11
+  - Database table- MARA
+  - click on display
+  - Material -245
+  - click on execute 
+  - You can see header information of Materal 245
+
+- /ose11
+- Databalse table MAKT
+- click on ddisplay
+- click on contents
+- Materail -245
+- click no execute
+- you will see 245  content
+
+ MM02( Material Change)
+- /mm02
+- Material -245
+- enter
+- select basic data
+- click on additional data
+- languae DE and click on material description- Test Material German
+
+Now you can check MARA AND MAKT table to check the changes
+
+
+
+3) SAP FI(Finance) -> 
+   Accounting Document -> 
+   Transaction codes - FB01( Accounting Document Create)
+                       FB02( Accounting Document Change)
+                       FB03( Accounting Document Display) 
+
+
+  Tables- BKPF( Accounting document header) 
+          BSEG( Accouting document item)
+  
+              
+                                              
