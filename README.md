@@ -23,6 +23,8 @@
 
    Layers - Presentation Layer( User Interaction Layer)
 
+
+
             Application Layer( Writing the programs and applications)
 
          Dispatcher:
@@ -43,11 +45,11 @@
          When a user log off, it is freed.
 
 
-Roll Area
+        Roll Area
 
-Roll area is a memory area that contains information about the program execution .
-When a program runs, a roll area is allocated for that program.
-The roll area is freed when the program ends.
+         Roll area is a memory area that contains information about the program execution .
+         When a program runs, a roll area is allocated for that program.
+         The roll area is freed when the program ends.
 
 
          Database Layer( To store and retrive the data).
@@ -95,7 +97,22 @@ The roll area is freed when the program ends.
    Transport Request -> It is a Mechanism to transport the objects from one system to another system.
 
 
+
+SAP GUI
+-------
+G - Graphical U - User I - Interface
+It allows end users to use various SAP applications by providing easy to use graphical interface.
+
+3 Types of SAP GUI:
+---------------------
+SAP GUI for Windows - SAP GUI for windows is a windows operating system that offers a windows like user experience.
+SAP GUI for JAVA - SAP GUI for JAVA environment is written in JAVA and is the platform-independent implementation of SAP GUI.  
+SAP GUI for HTML - Consist of Internet Transaction Server (ITS) on the server side and a web browser on the client side.
+
+
+
 11) SAP Logon Configuration:
+------------------------------
 
    Description: You can put any description of the system.
    If we will not put any description, It is a combination of System Id and Application Server.
@@ -128,6 +145,77 @@ The roll area is freed when the program ends.
   Password
   Logon language
 - 
+
+
+
+Features of SAP GUI 
+
+- A single face GUI for accessing all SAP applications such as
+    ERP(Enterprise resource planning),
+     CRM(Customer Relationship Management),
+      SAP SRM(Supply Relationship Management),
+      PI(Process Integration) etc.
+  
+- Users are allowed to login with their preferred language, as the same GUI can be used in different languages
+
+- It contains user parameters that are defined for more frequently keyed inputs. This enables the automatic population of text , based on specific user logins. This   in result, reduces the percentage of user inputs in real time.
+
+- SAP GUI allows to configure GUI font size, colors, logos, custom layouts etc.
+
+   - click on color, options and there you can select font and color sizes
+  
+
+- Elements of SAP GUI(Parts of SAP GUI) 
+
+Menu Bar
+The menu bar appears on the top of every SAP screen.
+The menu bar changes from screen to screen.
+System and help menus are always available on every screen.
+
+
+Standard Toolbar(Function Keys)
+The standard toolbar is located below the menu bar.
+The standard toolbar buttons are also called as function keys.
+
+Command Bar 
+Command bar is used to enter the transaction codes.
+Command bar can be opened and closed by using the icon on the right of the command bar.
+
+
+Title Bar
+In between the standard toolbar and the application toolbar lies the title bar.
+It is used to display the name of the screen or application you are accessing.
+Title bar is dynamic and changes from application to application.
+
+
+Application Toolbar
+The application toolbar is located directly below the title bar.
+It contains buttons that duplicate functions available from the menu bar, but provides quicker access to some of the most commonly used functions for the current screen.
+The buttons available in the application toolbar changes from application to application
+
+
+Screen Area
+The screen area of  SAP GUI is the area where the actual application is displayed.
+It consists of layout elements like - buttons, input fields, radio buttons, checkboxes etc.
+
+
+Status Bar
+The status bar is located at the bottom of the SAP screen.
+It displays important messages such as errors and completion of transactions.
+It also displays the session information also such as system, client, user, program, transaction etc. 
+
+
+SAP Easy Access - Adding Existing Item as Favorite 
+----------------------------------------------------
+Choose the existing item from the User Menu.
+Click on Favorites - Add
+
+SAP Easy Access - Adding New Item as Favorite 
+----------------------------------------------------
+Click on Favorites - Insert transaction
+
+ABAP Workbench 
+
 
 
 
