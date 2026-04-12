@@ -1,0 +1,50 @@
+
+- RICEFW or WRICEF
+
+ - The another name for RICEFW is WRICEF.
+ - SAP technical objects are divided in to 6 different categories.
+ -  R - Reports , I - Interfaces ,  C - Conversion , E - Enhancements , F - Forms , W - Workflow
+ -  When the business requirement cannot be fulfilled by standard SAP functionalities, then we require a RICEFW.
+ -   The requirements which cannot be satisfied by standard SAP application are called gaps.
+ -   Based on the category of the gap, objects are created in the form of a RICEFW item.
+
+
+- R- REPORTS
+
+Reports are used to display of information in the required format.
+If the business requirement cannot be fulfilled by standard SAP reports, then we develop custom reports based upon the customer requirement.
+The various report formats are classical reports, ALV reports etc.
+
+
+ - Interfaces
+Interfaces are used to transfer the data from Non-SAP to SAP , SAP to Non-SAP, SAP to SAP.
+The various cross applications like BAPI, RFC, IDOC’s are the example of interfaces.
+
+
+- C - Conversion
+
+- The process of converting data from one form to another is called as conversion.
+- When the customer is implementing SAP for the first time, all Legacy system(Non-SAP) system data needs to be migrated to the SAP system.
+- To upload the data in the SAP system the data needs to be converted from one form to another as per the system requirement. 
+- After conversion, the data is uploaded into the SAP system by making use of the various data migration tools or techniques like BDC, LSMW, BAPI etc.
+
+E - Enhancements
+
+- The process of adding our own functionality to SAP standard functionality is called as enhancements.
+- If the business requirement cannot be satisfied by standard SAP functionality, then we add our own functionality to the SAP standard functionality.
+- The various enhancements techniques are - Implicit and explicit enhancements, customer exit, BADI etc.
+
+
+F - Forms
+
+-Forms are layouts in SAP.
+-If the business requirement cannot be satisfied by standard layouts, then we create our own custom layouts.
+-We design layouts in SAP by using the various tools like smartforms, adobe forms(PDF forms), SAP Scripts.
+
+
+W - Workflow
+
+Workflow is the flowing of data from one level to another level.
+At every level, one or more actions are required.
+Example - When we apply leave in the system, it goes in to workflow of our supervisor to approve or reject that leave.
+If the business requirement cannot be satisfied by SAP standard workflow, then it results into creation of custom workflow.
