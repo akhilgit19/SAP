@@ -1,0 +1,42 @@
+ECC
+Full form : The full form of ECC is ERP Central Component.
+Definition : "It is the SAP system in which we use traditional databases like - Oracle, Sybase, DB2 etc.
+
+Application Layer - ECC
+Database Layer - Oracle , Sybase, DB2 etc."
+
+Identification:
+"a) In MARA table, the length of material number is 18.
+b) Check the product version and database using  system-status.
+C) The transaction codes XD01 and XK01 still exists."
+
+
+
+SOH
+Full form : The full form of SOH is SAP Business Suite on HANA
+
+Definition : "In this system, only the database is HANA 
+Application Layer - ECC
+Database Layer - HANA"
+
+Identification:
+
+"a) In MARA table, the length of material number is 18.
+b) Check the product version and database using  system-status.
+C) The transaction codes XD01 and XK01 still exists."
+
+
+
+S4H or S/4H.
+The full form of S4H is SAP Business Suite for HANA
+"In this system, the complete suite is in HANA.
+Application Layer - HANA
+Database Layer - HANA"
+"a) In MARA table, the length of material number is 40.
+b) Check the product version and database using  system-status.
+C) The transaction code XD01 and XK01 are obsolete, it navigates to transaction code BP."
+
+
+Brief Introduction to HANA
+HANA - High Performance Analytic Appliance( Hardware + Software)
+It uses in memory database technology which allows to process large amount of data in real time.
