@@ -65,17 +65,21 @@ For order no:
 --------------
 - SE11
 - select domain- ZONO_28 
+- click on create
 - short descp - Order number
 - Data type  NUMC
 - No of character 10
 - click enter
-- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
- 
+Notectrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+- click on save  save it as local object
+- you can check the syntax chekc button 
+- click on activate
   
 For order date:
 --------------
 - SE11
 - select domain- ZODATE_28 
+- click on create
 - short descp - Order DATE
 - Data type  DATC
 - No of character 8
@@ -86,11 +90,12 @@ For Payment mode:
 --------------
 - SE11
 - select domain- ZPM_28 
+- click on create
 - short descp - Payment Mode
 - Data type  CHARS
 - No of character 1
 - click on value range
- Fixed    short descript
+ Fixed    short descriptf
    C        Credit card
    D        Debit card
    n         netbanknig
@@ -103,6 +108,7 @@ For Total amount:
 ------------------
 - SE11
 - select domain- ZTC 
+- click on create
 - short descp - Total amount
 - Data type  CURRY
 - No of character 7
@@ -110,10 +116,11 @@ For Total amount:
 - click enter
 - ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
 
-For Total amount:
+For Currency:
 ------------------
 - SE11
 - select domain- ZCUR_28
+- click on create
 - short descp - CURRENCY
 - Data type  CUKY
 - No of character 5
@@ -126,12 +133,12 @@ Creation of Dataelement for Order header table:
 - se11
 - data type  ZDEONO_28
 - click on create
-- Data elment
+- Data elment ZDEONO_28
 - short description odernumber
 -  domain -ZONO_28 
 - data type NUMC
 - Length -10
-- click on field lable
+- click on field label
 - short    Order no
 - Medium   Order Number
 - long      Order Number
@@ -140,10 +147,10 @@ Creation of Dataelement for Order header table:
  
 
 - se11
-- data type  ZDEDATE_28
+- data type  ZDEODATE_28
 - click on create
-- Data elment
-- short description oderdate
+- Data elment ZDEODATE_28
+- short description oRDER dATE
 -  domain -ZODATE_28 
 - data type DATS
 - Length -8
@@ -159,7 +166,7 @@ Creation of Dataelement for Order header table:
 - se11
 - data type  ZDEPM_28
 - click on create
-- Data elment
+- Data elment- ZDEPM_28
 - short description PAYMENT MODE
 -  domain -ZPM_28 
 - data type CHAR
@@ -205,15 +212,18 @@ Creation of Dataelement for Order header table:
  
 
 
-
-
+Domains:
+--------
 ZONO_28 
 ZODATE_28 
 ZPM_28
 ZTC 
 ZCUR_28
 
-
+Data elements:
+----------------
 ZDEONO_28
-ZDEDATE_28
+ZDEODATE_28
 ZDEPM_28
+ZDETA_28
+ZDECUR_28
