@@ -227,3 +227,137 @@ ZDEODATE_28
 ZDEPM_28
 ZDETA_28
 ZDECUR_28
+
+Creation of tables:
+------------------------
+- se11
+- Database table - ZORDH_28
+- click on create
+- short description - Order Heder Table
+In Delivery and Mainetenance
+- Delivery class - A
+- Data Browser/Table View Editing- Display/Maintenance Allowed
+- click on fields
+In fileds
+- give MANDT in fields and MANDT  in data element as below and give enter
+- give ONO  and fields and ZDEONO_28 in data element as below give enter
+- give ODATE and fields and ZDEODATE_28 in data element as below give enter
+- give PM and fields and ZDEPM_28 in data element as below give enter
+- give TA and fields and ZDETA_28 in data element as below give enter
+- give CURR and fields and ZDECUR_28 in data element as below give enter
+
+Field            key Init        Dataelement   Data Type   Length    Decimal    Coording    shorDescriptoin
+MANDT             -               MANDT         CINT
+ONO               -              ZDEONO_28     NUMC
+ODATE                            ZDEODATE_28   DATS
+PM                               ZDEPM_28      CHAR
+TA                               ZDETA_28      CURR
+CURR                             ZDECUR_28     CKY
+
+
+- Select primary key of the table 
+  select MANDT and ONO
+- click on techinical settings, clic on save
+In General Properties
+- data class - APPL0
+- Size catageroy- 0
+- clic on save
+- click on back button
+- again click on save
+- click on syntax check
+
+
+
+For reference table and For reference field
+-----------------------------------------------
+- click on currency/quantity fields
+- in TA igve the refernce table Zorderheadtable  and reference field currency 
+
+
+Field                       Dataelement   Data Type  Reference table      ref field
+MANDT                           MANDT         CINT
+ONO                             ZDEONO_28     NUMC
+ODATE                           ZDEODATE_28   DATS
+PM                               ZDEPM_28      CHAR
+TA                               ZDETA_28      CURR  ZORDH 28             curr
+CURR                             ZDECUR_28     CKY
+
+- click on save, slick on syntax check0
+
+
+
+
+Inserting data in the table:
+------------------------------
+Order Header Table				
+Order Number	Order Date	Payment Mode	Total Amount	Currency
+1	             10-01-15	Credit Card	 500	INR
+2	             10-02-15	Debit Card	1000	INR
+3             	10-02-15	   Debit Card	2000	INR
+4             	10-03-15	   Net Banking	3000	INR
+5              10-04-15	  Net Banking	4000	INR
+				
+
+
+
+- Now click on utitlites
+- clic on table contents, click on create entries
+- client  800
+- ordernno -1
+- order date- 2:03:2022
+- payment mode- C
+- total maount - 500
+- currency - INR
+- click on save
+
+- click on back button
+
+- Now click on utitlites
+- clic on table contents, click on create entries
+- client  800
+- ordernno -2
+- order date- 2:03:2022
+- payment mode- D
+- total maount - 1000
+- currency - INR
+- click on save
+
+- click on utilities ,cclic on table contents, click on display
+
+You will be 
+
+Table entry    Edit    goto setting 
+create
+change
+display
+delete
+
+ CL  Ordner Number Order Date    Payment mode   TotalAMount Currency
+
+ 800 0000000000001  02.03.2022     C             50,000 INR
+ 800 0000000000001  02.03.2022     d             100,000 INR
+ 
+
+- If you want to change or delete the record, you can select table entry , cnd click on delete
+
+Note:SE16->  Transaction code for Data Browser.
+
+- click on SE16
+- Table name- ZORDH_28
+- client  800
+- ordernno -2
+- order date- 2:03:2022
+- payment mode- D
+- total maount - 1000
+- currency - INR
+- click on save
+
+- On top click on table contents, click on execute.
+
+Same thing you can do from SE16n
+- ose16n
+- click on create
+  to entry the record
+- click on - button to delete the record
+
+
