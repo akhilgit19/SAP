@@ -723,4 +723,127 @@ Item cost                 N       CURR              7,2
 
 
 
+Domains:
+--------
+ZONO_28 
+ZODATE_28 
+ZPM_28
+ZTC_28
+ZCUR_28
+ZOITMNO_28 
 
+Data elements:
+----------------
+ZDEONO_28
+ZDEODATE_28
+ZDEPM_28
+ZDETA_28
+ZDECUR_28
+ZDEOITMNO_28
+ZDEODES_28
+
+
+
+Creation of Domains for Order item Table:
+----------------------------------------------
+Order item Table:
+------------------
+Field Description        key      Data type      lenth       Possible values
+client number             Y       CLNT             3
+Order Number              Y       NUMC             10
+Order item Number         Y       NUMC             2
+Order Description         N       CHAR             40
+Item cost                 N       CURR              7,2
+
+
+
+
+For order item number:
+---------------------
+- SE11
+- select domain- ZOITMNO_28 
+- click on create
+- short descp - Order Item Number
+- Data type  NUMC
+- No of character 2
+- click enter 
+Notectrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+- click on save  save it as local object
+- you can check the syntax chekc button 
+- click on activate
+
+For order Description:
+---------------------
+- SE11
+- select domain- ZODESC_28 
+- click on create
+- short descp - Order Description
+- Data type  CHAR
+- No of character 40
+- click enter 
+Notectrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+- click on save  save it as local object
+- you can check the syntax chekc button 
+- click on activate
+  
+
+
+
+Creation of Dataelement for Order Item  number
+--------------------------------------------------------
+- se11
+- data type  ZDEOITMNO_28
+- click on create
+- Data elment ZDEOITMNO_28
+- short description Order Item  number
+-  domain -ZOITMNO_28 
+- data type NUMC
+- Length -2
+- click on field label
+- short    Order Itno
+- Medium   Order Item Number
+- long      Order Item Number
+- Heading   Order Item Number
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+ 
+
+Creation of Dataelement forOrder Description
+--------------------------------------------------------
+- se11
+- data type  ZDEODES_28
+- click on create
+- Data elment ZDEODES_28
+- short description Order Description
+-  domain -ZODESC_28 
+- data type Char
+- Length -40
+- click on field label
+- short    Order Desc
+- Medium   Order Decription
+- long     Order Decription
+- Heading   Order Decription
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+
+
+
+Creation of Dataelement for item Cost
+--------------------------------------------------------
+- se11
+- data type  ZDEOICOST_28
+- click on create
+- Data elment ZDEOICOST_28
+- short description item Cost
+-  domain -ZTC_28
+- data type curr
+- Length -7
+- click on field label
+- short    item Cost
+- Medium   item Cost
+- long    item Cost
+- Heading   item Cost
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+
+
+
+
+ 
