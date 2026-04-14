@@ -711,3 +711,16 @@ Delivery class-> It is used for controlling data transport of tables during inst
 
 
 
+
+Order item Table:
+------------------
+Field Description        key      Data type      lenth       Possible values
+client number             Y       CLNT             3
+Order Number              Y       NUMC             10
+Order item Number         Y       NUMC             2
+Order Description         N       CHAR             40
+Item cost                 N       CURR              7,2
+
+
+
+
