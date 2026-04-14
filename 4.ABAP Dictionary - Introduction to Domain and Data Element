@@ -1115,3 +1115,28 @@ Types of SAP Database Tables
 3) Cluster table - There is N:1 relationship between the ABAP dictionary and the database.( Many tables in ABAP dictionary corresponds to one table in database )
 
 
+
+Pooled -> Primary-foreign key relationship is not required.
+Cluster -> Primary-foreign key relationship is mandatory.
+
+Structure of a Pooled table at the database layer - Tabname Varkey Dataln vardata
+Structure of a cluster table at the database layer - Key Pageno Vardata
+
+Pooled Table :
+
+In case of pooled table, there is N:1(many 
+       to one) relationship between the ABAP 
+       dictionary and the database.
+For pooled tables, primary-foreign key 
+       relationship is not required.
+Table pool structure - Tabname Varkey Dataln Vardata
+
+Cluster Table:
+
+In case of cluster table, there is N:1(many 
+       to one) relationship between the ABAP 
+      dictionary and the database.
+For cluster tables, primary-foreign key 
+       relationship is mandatory.
+Table cluster structure - Key Pageno Vardata
+
