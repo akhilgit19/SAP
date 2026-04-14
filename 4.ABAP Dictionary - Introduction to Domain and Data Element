@@ -48,6 +48,57 @@ ABAP Dictionary - Introduction to Domain and Data Element
                     upgrade and transporting between customer systems.  
 
 
+Order Header Table							
+Field Description	Key	Data type	Length	Possible Values			
+Client Number	Y	CLNT	3				
+Order Number	Y	NUMC	10				
+Order Date	N	DATS	8				
+Payment Mode	N	CHAR	1	C = Credit Card,D = Debit Card ,N = Net Banking			
+Total Amount	N	CURR	7,2				
+Currency	N	CUKY	5				
+							
+Order Item Table							
+Field Description	Key	Data type	Length	Possible Values			
+Client Number	Y	CLNT	3				
+Order Number	Y	NUMC	10				
+Order Item Number	Y	NUMC	2				
+Order Description	N	CHAR	40				
+Item Cost	N	CURR	7,2				
+							
+							
+Logic:							
+Assign the Primary foreign key relationship between the tables.							
+Generate the Table Maintenance Generator for both the tables.							
+Insert the following data in to the tables.							
+							
+							
+Order Header Table							
+Order Number	Order Date	Payment Mode	Total Amount	Currency			
+1	10-01-15	Credit Card	500	INR			
+2	10-02-15	Debit Card	1000	INR			
+3	10-02-15	Debit Card	2000	INR			
+4	10-03-15	Net Banking	3000	INR			
+5	10-04-15	Net Banking	4000	INR			
+							
+							
+Order Item Table							
+Order Number	Order Item Number	Order Description	Order Cost				
+1	10	Tea	100				
+1	20	Coffee	200				
+1	30	Milk	200				
+2	10	Nuts	600				
+2	20	Sugar	400				
+3	10	Tea	1000				
+3	20	Coffee	800				
+3	30	Milk	200				
+4	10	Nuts	2500				
+4	20	Sugar	500				
+5	10	Tea	2500				
+5	20	Coffee	800				
+5	30	Milk	700				
+
+
+
 Order Header Table
 ------------------
 Field Description        key      Data type      lenth       Possible values
@@ -365,6 +416,13 @@ delete
  800 0000000000001  02.03.2022     C             50,000 INR
  800 0000000000001  02.03.2022     d             100,000 INR
  
+Order Number	Order Date	        Payment Mode	Total Amount	Currency
+1	           10-01-15	              Credit Card	  500	          INR
+2	           10-02-15	                Debit Card   	1000	      INR
+3	           10-02-15	                Debit Card   	2000	      INR
+4	           10-03-15	                Net Banking	     3000	      INR
+5	           10-04-15	                Net Banking	    4000	      INR
+
 
 - If you want to change or delete the record, you can select table entry , cnd click on delete
 
@@ -741,7 +799,7 @@ ZDETA_28
 ZDECUR_28
 ZDEOITMNO_28
 ZDEODES_28
-
+ZDEOICOST_28
 
 
 Creation of Domains for Order item Table:
@@ -846,4 +904,214 @@ Creation of Dataelement for item Cost
 
 
 
+Domains:
+--------
+ZONO_28 
+ZODATE_28 
+ZPM_28
+ZTC_28
+ZCUR_28
+ZOITMNO_28 
+
+Data elements:
+----------------
+ZDEONO_28
+ZDEODATE_28
+ZDEPM_28
+ZDETA_28
+ZDECUR_28
+ZDEOITMNO_28
+ZDEODES_28
+ZDEOICOST_28
+
+
+Creation of table:
+------------------------
+- se11
+- Database table - ZORDI_28
+- click on create
+- short description - Order Heder Table
+In Delivery and Mainetenance
+- Delivery class - A
+- Data Browser/Table View Editing- Display/Maintenance Allowed
+- click on fields
+In fileds
+- give MANDT in fields and MANDT  in data element as below and give enter
+- give ONO  in fields and ZDEONO_28 in data element as below give enter
+- give OIN in fields and ZDEOITMNO_28 in data element as below give enter
+- give ODESC in fields and ZDEODES_28 in data element as below give enter
+- give ICOST in fields and ZDEOICOST_28 in data element as below give enter
+
+
+Field            key Init        Dataelement   Data Type   Length    Decimal    Coording    shorDescriptoin
+MANDT             -               MANDT         CINT       3
+ONO               -              ZDEONO_28     NUMC
+OIN               -              ZDEOITMNO_28   NUMC
+ODESC                           ZDEODES_28      CHAR
+ICOST                            ZDEOICOST_28      CURR
+
+
+
+- Select primary key of the table 
+  select MANDT and ONO, OIN  
+- click on techinical settings, clic on save
+In General Properties
+- data class - APPL0
+- Size catageroy- 0
+- clic on save
+- click on back button
+- again click on save
+- click on syntax check
+
+
+
+For reference table and For reference field
+================================================
+- click on currency/quantity fields
+- in TA igve the refernce table Zorderheadtable  and reference field currency 
+
+
+Field                       Dataelement   Data Type  Reference table      ref field
+MANDT                           MANDT         CINT
+ONO                             ZDEONO_28     NUMC
+OIN                           ZDEOITMNO_28     DATS
+ODESC                          ZDEODES_28      CHAR
+ICOS                          ZDEOICOST_28      CURR  ZORDH 28             curr
+
+
+- click on save, slick on syntax check0
+
+
+
+
+
+
+Assigning Primary-Foreign Key Relationship
+===========================================
+Shortcuts -  CTRL + S = SAVE
+                 CTRL + F2 -> Syntax Check
+                 CTRL + F3 -> Activate
+                 CTRL + SHIFT + F10 -> To check the contents of the table.
+
  
+                                        Topic : Primary-Foreign Key Relationship
+
+Primary Key of one table act as a Foreign key in another table.
+
+( Data/Record/Row/Tuple will be always in the primary key table, It may or may not in the foreign key table)
+
+Pre-requisite - Tables should have a common column/field.
+
+Cardinality -> Number of records in key table, correponds to how many number of records in to secondary/foreign key table.
+
+
+                                       Topic : Initial Values Check box in Table
+
+
+- se11
+- Database table - ZORDI_28
+- click on create
+- short description - Order Heder Table
+In Delivery and Mainetenance
+- Delivery class - A
+- Data Browser/Table View Editing- Display/Maintenance Allowed
+- click on fields
+In fileds
+- give MANDT in fields and MANDT  in data element as below and give enter
+- give ONO  in fields and ZDEONO_28 in data element as below give enter
+- give OIN in fields and ZDEOITMNO_28 in data element as below give enter
+- give ODESC in fields and ZDEODES_28 in data element as below give enter
+- give ICOST in fields and ZDEOICOST_28 in data element as below give enter
+
+
+Field            key Init        Dataelement   Data Type   Length    Decimal    Coording    shorDescriptoin
+MANDT             -               MANDT         CINT       3
+ONO               -              ZDEONO_28     NUMC
+OIN               -              ZDEOITMNO_28   NUMC
+ODESC                           ZDEODES_28      CHAR
+ICOST                            ZDEOICOST_28      CURR
+
+- select ON and click on forign keys
+- check table give ZORDH_28 (PRIMAARY or independent table)
+- click on create proposal
+You will see 
+
+ZORDH_28 MANDT     ZORDI_28   MNDT
+ZORDH_28 ON        ZORDI_28   ON
+
+
+- Cardinality- 1: N
+- click on copy
+- click on check the syntax
+- click on activate button
+
+
+
+Table Maintenance Generator
+------------------------------
+- se11
+- database table ZORDI_28
+- click on change
+- cilck on utitlies, click on table maintenance generator
+- In authorization group you can choose $NC$ (which is given by your team)
+- function group - ZORDI_28(table name)
+- Maintenace type
+   . One step - choose
+   . two step - if you choose this
+- click no find scr number on top
+- click on green tick
+- Now you can see in Maint screen no 
+  overview screen - as 1
+  single screen - here you will see 2 if you choose 2 step
+- click on create on top
+- click on save as local object
+- When you get request completed sucessfully on bottom,
+  table maineteance generator is created
+
+
+- Now go to SM30
+- TABLE/VIEW - ZORDI_28
+- click on maintain
+- click on new entries
+- 
+Order Item Table			
+Order Number	Order Item Number	Order Description	Order Cost
+1    	             10	               Tea	        100
+1	20	Coffee	200
+1	30	Milk	200
+2	10	Nuts	600
+2	20	Sugar	400
+3	10	Tea	1000
+3	20	Coffee	800
+3	30	Milk	200
+4	10	Nuts	2500
+4	20	Sugar	500
+5	10	Tea	2500
+5	20	Coffee	800
+5	30	Milk	700
+
+
+- click on save and click on back button
+- after going back if you want to delete any record ,select the record
+  click on - button, the record will be deleted
+  click on save
+- you can change the existing records values directly and click on ave
+- click on system, click on status, you can see screen no-1,
+  means that is our overview screen
+- To Delete this generator.
+   -se11
+   - database table ZORDI_28
+   - click on change
+   -  cilck on utitlies, click on table maintenance generator
+   - click on save
+   - click on back button
+
+
+Types of SAP Database Tables
+====================================
+
+1) Transparent table - There is 1:1 relationship between the ABAP dictionary and the database.( One table in ABAP dictionary corresponds to one table in database)
+2) Pooled table - There is N:1 relationship between the ABAP dictionary and the database.( Many tables in ABAP dictionary corresponds to one table in database)
+3) Cluster table - There is N:1 relationship between the ABAP dictionary and the database.( Many tables in ABAP dictionary corresponds to one table in database )
+
+
