@@ -24,6 +24,30 @@ ABAP Dictionary - Introduction to Domain and Data Element
 6) Size Category -> A table can store how many number of records.
 
 
+7)  Types of SAP Data ->
+    Master Data-> Which is accessed very frequenty, but changed very rarely. 
+    Transaction Data-> Which is always changing, number of records are continuously increasing.
+    Configuration Data->Is something which we can customize,
+                        Customizing depends on the business Scenario and customer requirements.
+
+   Example -> Company ABC
+  
+              Master Data -> 
+              Employee Data of the Company ABC
+
+              Transaction Data ->
+              Transactions in the Company(Banking transactions,Revenue transactions).
+
+              Configuration Data->
+             (Employee Designation-> Senior Consultant( Vehicle allowance applicable)
+             (Employee Designation-> other than Senior consultant( Vehicle allowance not applicable).
+
+8) Data Class -> Tells us in which portion of database the table data will get store. 
+
+9) Delivery class-> It is used for controlling data transport of tables during installation,
+                    upgrade and transporting between customer systems.  
+
+
 Order Header Table
 ------------------
 Field Description        key      Data type      lenth       Possible values
@@ -240,11 +264,11 @@ In Delivery and Mainetenance
 - click on fields
 In fileds
 - give MANDT in fields and MANDT  in data element as below and give enter
-- give ONO  and fields and ZDEONO_28 in data element as below give enter
-- give ODATE and fields and ZDEODATE_28 in data element as below give enter
-- give PM and fields and ZDEPM_28 in data element as below give enter
-- give TA and fields and ZDETA_28 in data element as below give enter
-- give CURR and fields and ZDECUR_28 in data element as below give enter
+- give ONO  in fields and ZDEONO_28 in data element as below give enter
+- give ODATE in fields and ZDEODATE_28 in data element as below give enter
+- give PM in fields and ZDEPM_28 in data element as below give enter
+- give TA in fields and ZDETA_28 in data element as below give enter
+- give CURR in fields and ZDECUR_28 in data element as below give enter
 
 Field            key Init        Dataelement   Data Type   Length    Decimal    Coording    shorDescriptoin
 MANDT             -               MANDT         CINT
@@ -269,7 +293,7 @@ In General Properties
 
 
 For reference table and For reference field
------------------------------------------------
+================================================
 - click on currency/quantity fields
 - in TA igve the refernce table Zorderheadtable  and reference field currency 
 
@@ -286,6 +310,10 @@ CURR                             ZDECUR_28     CKY
 
 
 
+
+
+To Maintain the table:
+==========================================
 
 Inserting data in the table:
 ------------------------------
@@ -361,3 +389,214 @@ Same thing you can do from SE16n
 - click on - button to delete the record
 
 
+10) TMG( Table Maintenance Generator)
+    Authorization group : &NC&( Any user can maintain the data).
+    Single Step: Only overview screen is applicable
+    Two Step :  Both Overview screen and single screen are applicable.
+
+
+Table Maintenance Generator
+------------------------------
+- se11
+- database table ZORDH_28
+- click on change
+- cilck on utitlies, click on table maintenance generator
+- In authorization group you can choose $NC$ (which is given by your team)
+- function group - ZORDH_28(table name)
+- Maintenace type
+   . One step - choose
+   . two step - if you choose this
+- click no find scr number on top
+- click on green tick
+- Now you can see in Maint screen no 
+  overview screen - as 1
+  single screen - here you will see 2 if you choose 2 step
+- click on create on top
+- click on save as local object
+- When you get request completed sucessfully on bottom,
+  table maineteance generator is created
+
+
+- Now go to SM30
+- TABLE/VIEW - ZORDH_28
+- click on maintain
+- click on new entries
+-
+order no    order date       payment MD     Total Amt     currency
+4           03.03.2022       nrt Banking    3000          INR
+5           03.03.2022       nrt Banking    4000          INR
+
+- click on save and click on back button
+- after going back if you want to delete any record ,select the record
+  click on - button, the record will be deleted
+  click on save
+- you can change the existing records values directly and click on ave
+- click on system, click on status, you can see screen no-1,
+  means that is our overview screen
+- Delete this generator.
+   -se11
+   - database table ZORDH_28
+   - click on change
+   -  cilck on utitlies, click on table maintenance generator
+   - click on save
+   - click on back button
+
+
+- Create again table generator with 2 screens.
+
+- se11
+- database table ZORDH_28
+- click on change
+- cilck on utitlies, click on table maintenance generator
+- In authorization group you can choose $NC$ (which is given by your team)
+- function group - ZORDH_28(table name)
+- Maintenace type
+   . One step - 
+   . two step - choose this
+- click no find scr number on top
+- click on green tick
+- Now you can see in Maint screen no 
+  overview screen - as 1
+  single screen - here you will see 2
+- click on create on top
+- click on save as local object
+- When you get request completed sucessfully on bottom,
+  table maineteance generator is created
+
+
+- Now go to SM30
+- TABLE/VIEW - ZORDH_28
+- click on maintain
+- click on new entries
+- Here now you can only enter 1 record in another screen.
+
+Order number  -5 
+Order Header Table 
+--------------------
+Order date -02.3.2020
+Paymote MOde net banking
+Total Amount 30,0000
+Currency  inr
+
+- click on save and if you click on back button you will the table
+
+- if you want to change a exissting record, select the record
+  click on details, change the values, click on save and cilck on back button
+- you can select a record and click on - button to delete the record
+
+If you want to see which is overview and single scree
+
+- Now go to SM30
+- TABLE/VIEW - ZORDH_28
+- click on maintain
+- click on system
+- click on status
+- you can see screen no -1 it means overview screen
+- if you can put at a time only single record than it;s single screen -2
+
+
+
+ Important Points related to TMG.
+    a) Data browser/Table view maintenace options needs to be Display/Maintenance allowed.
+    b) Whenever you add new columns/fields to the table after generation of TMG, The newly added fields
+       will not appear automatically while maintaining data with the help of SM30. 
+       We need to delete the TMG and generate it again.
+    c) Deleting the TMG never delete the table data.
+    d) To delete the TMG, Open the table in Change Mode, otherwise delete button will not be visible.         
+
+
+a.
+Note 
+-----  
+when ever you want a maintane generator for a table
+   always choose Display/Maintenance Allowed
+
+Creation of tables:
+------------------------
+- se11
+- Database table - ZORDH_28
+- click on create
+- short description - Order Heder Table
+In Delivery and Mainetenance
+- Delivery class - A
+- Data Browser/Table View Editing- Display/Maintenance Allowed
+
+b, 
+
+supppose if im adding new dataelement go to the table
+
+
+Creation of tables:
+------------------------
+- se11
+- Database table - ZORDH_28
+- click on create
+- short description - Order Heder Table
+In Delivery and Mainetenance
+- Delivery class - A
+- Data Browser/Table View Editing- Display/Maintenance Allowed
+- click on fields
+In fileds
+- give MANDT in fields and MANDT  in data element as below and give enter
+- give ONO  in fields and ZDEONO_28 in data element as below give enter
+- give ODATE in fields and ZDEODATE_28 in data element as below give enter
+- give PM in fields and ZDEPM_28 in data element as below give enter
+- give TA in fields and ZDETA_28 in data element as below give enter
+- give CURR in fields and ZDECUR_28 in data element as below give enter
+
+ADDED
+- give DNO in fields and ZDEONO_28  in data element as below give enter
+Field            key Init        Dataelement   Data Type   Length    Decimal    Coording    shorDescriptoin
+MANDT             -               MANDT         CINT
+ONO               -              ZDEONO_28     NUMC
+ODATE                            ZDEODATE_28   DATS
+PM                               ZDEPM_28      CHAR
+TA                               ZDETA_28      CURR
+CURR                             ZDECUR_28     CKY
+DNO                              ZDEONO_28     NUMC
+
+- clic on save
+- click on back button
+- again click on save
+- click on syntax check
+
+
+
+- Now go to SM30
+- TABLE/VIEW - ZORDH_28
+- click on maintain, you will not see the new record so
+
+- Delete this generator
+   -se11
+   - database table ZORDH_28
+   - click on change
+   -  cilck on utitlies, click on table maintenance generator
+   - click on save
+   - click on back button
+
+
+
+Again generate the table mainteance genartor 
+
+- se11
+- database table ZORDH_28
+- click on change
+- cilck on utitlies, click on table maintenance generator
+- In authorization group you can choose $NC$ (which is given by your team)
+- function group - ZORDH_28(table name)
+- Maintenace type
+   . One step - choose
+   . two step - if you choose this
+- click no find scr number on top
+- click on green tick
+- Now you can see in Maint screen no 
+  overview screen - as 1
+  single screen - here you will see 2 if you choose 2 step
+- click on create on top
+- click on save as local object
+- When you get request completed sucessfully on bottom,
+  table maineteance generator is created
+
+
+Note from SE16 and SE16N after generating TMG you can goto sm30 via SE16 and SE16N
+  But end users will have only access to SE30
