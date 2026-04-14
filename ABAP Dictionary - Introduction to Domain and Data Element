@@ -600,3 +600,114 @@ Again generate the table mainteance genartor
 
 Note from SE16 and SE16N after generating TMG you can goto sm30 via SE16 and SE16N
   But end users will have only access to SE30
+
+
+
+Importance of MANDT Field and Size Category
+---------------------------------------------------
+
+Creation of tables:
+------------------------
+- se11
+- Database table - ZORDH_28
+- click on create
+- short description - Order Heder Table
+In Delivery and Mainetenance
+- Delivery class - A
+- Data Browser/Table View Editing- Display/Maintenance Allowed
+- click on fields
+In fileds
+- give MANDT in fields and MANDT  in data element as below and give enter
+- give ONO  in fields and ZDEONO_28 in data element as below give enter
+- give ODATE in fields and ZDEODATE_28 in data element as below give enter
+- give PM in fields and ZDEPM_28 in data element as below give enter
+- give TA in fields and ZDETA_28 in data element as below give enter
+- give CURR in fields and ZDECUR_28 in data element as below give enter
+
+Field            key Init        Dataelement   Data Type   Length    Decimal    Coording    shorDescriptoin
+MANDT             -               MANDT         CINT
+ONO               -              ZDEONO_28     NUMC
+ODATE                            ZDEODATE_28   DATS
+PM                               ZDEPM_28      CHAR
+TA                               ZDETA_28      CURR
+CURR                             ZDECUR_28     CKY
+
+
+- Select primary key of the table 
+  select MANDT and ONO
+- click on techinical settings, clic on save
+In General Properties
+- data class - APPL0
+- Size catageroy- 0
+- clic on save
+- click on back button
+- again click on save
+- click on syntax check
+
+
+
+For reference table and For reference field
+================================================
+- click on currency/quantity fields
+- in TA igve the refernce table Zorderheadtable  and reference field currency 
+
+
+Field                       Dataelement   Data Type  Reference table      ref field
+MANDT                           MANDT         CINT
+ONO                             ZDEONO_28     NUMC
+ODATE                           ZDEODATE_28   DATS
+PM                               ZDEPM_28      CHAR
+TA                               ZDETA_28      CURR  ZORDH 28             curr
+CURR                             ZDECUR_28     CKY
+
+- click on save, slick on syntax check0
+
+
+
+- Select primary key of the table 
+  select MANDT and ONO
+- click on techinical settings, clic on save
+In General Properties
+- data class - APPL0
+- Size catageroy- 0
+- clic on save
+- click on back button
+- again click on save
+- click on syntax check
+
+
+MANDT -> Client number of SAP system.
+
+  Tables having MANDT field are called as client dependent tables or Client-Specific tables..
+  Tables does not have MANDT field are called as Client Independent tables. 
+
+
+Size Category -> A table can store how many number of records.
+
+
+Types of SAP Data ->
+    Master Data-> Which is accessed very frequenty, but changed very rarely. 
+    Transaction Data-> Which is always changing, number of records are continuously increasing.
+    Configuration Data->Is something which we can customize,
+                        Customizing depends on the business Scenario and customer requirements.
+
+   Example -> Company ABC
+  
+              Master Data -> 
+              Employee Data of the Company ABC
+
+              Transaction Data ->
+              Transactions in the Company(Banking transactions,Revenue transactions).
+
+              Configuration Data->
+             (Employee Designation-> Senior Consultant( Vehicle allowance applicable)
+             (Employee Designation-> other than Senior consultant( Vehicle allowance not applicable).
+
+
+Data Class -> Tells us in which portion of database the table data will get store. 
+
+Delivery class-> It is used for controlling data transport of tables during installation,
+                    upgrade and transporting between customer systems.  
+
+
+
