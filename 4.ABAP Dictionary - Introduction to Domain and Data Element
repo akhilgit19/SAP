@@ -968,7 +968,7 @@ In General Properties
 For reference table and For reference field
 ================================================
 - click on currency/quantity fields
-- in TA igve the refernce table Zorderheadtable  and reference field currency 
+- in IOCS igve the refernce table Zorderheadtable  and reference field currency 
 
 
 Field                       Dataelement   Data Type  Reference table      ref field
@@ -1139,4 +1139,258 @@ In case of cluster table, there is N:1(many
 For cluster tables, primary-foreign key 
        relationship is mandatory.
 Table cluster structure - Key Pageno Vardata
+
+
+
+
+Structures:
+===============
+
+Structures ->  Is a collection of fields/columns of different data type or similar data type.
+
+ZEMP -> EID -> N(10)
+        ENAME ->C(40)
+
+ZEMP1 ->EID -> N(10)
+        ESAL ->N(10)
+
+Difference between table & Structure -> Table has data , Structure does not have any data.
+
+
+Include  -> 1) It is a reusebale Structure.
+            2) We can insert the include structure at any point.
+            3) It is applicable to customer specific tables, It is not applicable to SAP specific tables.
+
+
+Append  -> 1) It is not a reuseable structure.
+           2) It always inserts at the last.
+           3) It is applicable to both customer specific tables and SAP tables.
+
+
+Field Description	Data type	Length	Possible Values				
+Delivery Number	NUMC	12					
+Delivery Date	DATS	8					
+Delivery Location	CHAR	3	MUM = Mumbai, AHD = Ahmebabad,KOL = Kolkatta				
+							
+							
+							
+							
+Order Header Table							
+Order Number	Order Date	Delivery Number	Delivery Date	Payment Mode	Total Amount	Currency	Delivery Location
+1	10-01-15	10	12-01-15	Credit Card	500	INR	Mumbai
+2	10-01-15	11	12-01-15	Debit Card	1000	INR	Mumbai
+3	11-01-15	12	12-01-15	Debit Card	2000	INR	Ahmedabad
+4	11-01-15	13	12-01-15	Net Banking	3000	INR	Ahmedabad
+5	11-01-15	14	12-01-15	Net Banking	4000	INR	Kolkatta
+							
+							
+							
+Logic							
+Add Delivery Number and Delivery date Field to the Order Header Table With the help of Include Structure.							
+Add Delivery address to the Order Header table With The Help of Append Structure.							
+Regenerate The Table Maintenance Generator and Insert the Values of Delivery number,Delivery date  and Delivery location.							
+
+
+
+							
+Order Header Table							
+Order Number	Order Date	Payment Mode	Total Amount	Currency			
+1	10-01-15	Credit Card	500	INR			
+2	10-02-15	Debit Card	1000	INR			
+3	10-02-15	Debit Card	2000	INR			
+4	10-03-15	Net Banking	3000	INR			
+5	10-04-15	Net Banking	4000	INR		
+
+
+
+Domains:
+--------
+ZONO_28 
+ZODATE_28 
+ZPM_28
+ZTC_28
+ZCUR_28
+ZOITMNO_28 
+ZDN_28
+Data elements:
+----------------
+ZDEONO_28
+ZDEODATE_28
+ZDEPM_28
+ZDETA_28
+ZDECUR_28
+ZDEOITMNO_28
+ZDEODES_28
+ZDEOICOST_28
+ZDEDN_28
+ZDEDDATE_28
+ZDEDLOC_28
+Cretion of domains for Delivery no and Delivery date:
+-------------------------------------------------------
+For Delivery number:
+--------------
+- SE11
+- select domain- ZDN_28
+- click on create
+- short descp - Deivery number
+- Data type - NUMC
+- No of character 12
+- click enter
+Notectrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+- click on save  save it as local object
+- you can check the syntax chekc button 
+- click on activate	
+
+For Delivery Location:
+--------------
+- SE11
+- select domain- ZDLOC_28
+- click on create
+- short descp - Deivery Location
+- Data type - CHAR
+- No of character 3
+- click on value Range
+Fixed    short description
+MUM      Mumbai
+AHD      Ahmedabad
+KOL      Kolkata
+- click enter
+Notectrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+- click on save  save it as local object
+- you can check the syntax chekc button 
+- click on activate	
+
+
+
+Creation of Dataelement for Deliery no:
+--------------------------------------------------
+- se11
+- data type  ZDEDN_28
+- click on create
+- Data elment ZDEDN_28
+- short description odernumber
+-  domain -ZDN_28
+- data type NUMC
+- Length -12
+- click on field label
+- short    Del no
+- Medium   Delivery Number
+- long     Delivery Number
+- Heading  Delivery Number
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+
+
+
+
+
+Creation of Dataelement for Deliery date:
+--------------------------------------------------
+- se11
+- data type  ZDEDDATE_28
+- click on create
+- Data elment ZDEDDATE_28
+- short description odernumber
+-  domain - ZDEODATE_28 
+- data type DATS
+- Length -8
+- click on field label
+- short    Del date
+- Medium   Delivery date
+- long     Delivery date
+- Heading  Delivery date
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+
+
+Creation of Dataelement for Deliery locatino:
+--------------------------------------------------
+- se11
+- data type  ZDEDLOC_28
+- click on create
+- Data elment ZDEDLOC_28
+- short description odernumber
+-  domain - ZDLOC_28
+- data type CHAR
+- Length -3
+- click on field label
+- short    Del loc
+- Medium   Delivery location
+- long     Delivery location
+- Heading  Delivery location
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+
+
+
+ZDEDN_28
+ZDEDDATE_28
+ZDEDLOC_28
+
+Creating includstructure 
+-----------------------------
+- se11
+- data type- ZINSTR_28
+- click on create
+- click on green tick
+- structure  ZINSTR_28
+- ShortDescription-= Includ Structure for Order Tables
+Component  Typing method      Component Type       Data type
+DNO         Types             ZDEDN_28
+DDATE       Types             ZDEDDATE_28
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+
+
+
+- go to se11
+
+- Database table - ZORDH_28
+- click on change
+- short description - Order Heder Table
+In Delivery and Mainetenance
+- Delivery class - A
+- Data Browser/Table View Editing- Display/Maintenance Allowed
+- click on fields
+In fileds
+- give MANDT in fields and MANDT  in data element as below and give enter
+- give ONO  in fields and ZDEONO_28 in data element as below give enter
+- give ODATE in fields and ZDEODATE_28 in data element as below give enter
+- give PM in fields and ZDEPM_28 in data element as below give enter
+- give TA in fields and ZDETA_28 in data element as below give enter
+- give CURR in fields and ZDECUR_28 in data element as below give enter
+
+Field            key Init        Dataelement   Data Type   Length    Decimal    Coording    shorDescriptoin
+MANDT             -               MANDT         CINT
+ONO               -              ZDEONO_28     NUMC
+ODATE                            ZDEODATE_28   DATS
+PM                               ZDEPM_28      CHAR
+TA                               ZDETA_28      CURR
+CURR                             ZDECUR_28     CKY
+
+- simply put the cursor on PM row
+- click on edit, clickn on include,click on insert
+- 
+structure - ZINSTR_28
+- click on okay
+
+
+Field            key Init        Dataelement   Data Type   Length    Decimal    Coording    shorDescriptoin
+MANDT             -               MANDT         CINT
+ONO               -              ZDEONO_28     NUMC
+ODATE                            ZDEODATE_28   DATS
+.INCLUDE                         ZINSTR_28
+PM                               ZDEPM_28      CHAR
+TA                               ZDETA_28      CURR
+CURR                             ZDECUR_28     CKY
+
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+- Now go to database table ZORDH_28
+- click on display
+Field            key Init        Dataelement   Data Type   Length    Decimal    Coording    shorDescriptoin
+MANDT             -               MANDT         CINT
+ONO               -              ZDEONO_28     NUMC
+ODATE                            ZDEODATE_28   DATS
+.INCLUDE                         ZINSTR_28    STRU
+DNO                              ZDEDN_28     NUMC
+DDATE                            ZDEDDATE_28   DATS
+PM                               ZDEPM_28      CHAR
+TA                               ZDETA_28      CURR
+CURR                             ZDECUR_28     CKY
 
