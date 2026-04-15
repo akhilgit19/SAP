@@ -1349,12 +1349,7 @@ In Delivery and Mainetenance
 - Data Browser/Table View Editing- Display/Maintenance Allowed
 - click on fields
 In fileds
-- give MANDT in fields and MANDT  in data element as below and give enter
-- give ONO  in fields and ZDEONO_28 in data element as below give enter
-- give ODATE in fields and ZDEODATE_28 in data element as below give enter
-- give PM in fields and ZDEPM_28 in data element as below give enter
-- give TA in fields and ZDETA_28 in data element as below give enter
-- give CURR in fields and ZDECUR_28 in data element as below give enter
+
 
 Field            key Init        Dataelement   Data Type   Length    Decimal    Coording    shorDescriptoin
 MANDT             -               MANDT         CINT
@@ -1393,4 +1388,533 @@ DDATE                            ZDEDDATE_28   DATS
 PM                               ZDEPM_28      CHAR
 TA                               ZDETA_28      CURR
 CURR                             ZDECUR_28     CKY
+
+
+- You can inser the include structure at any poitn by selecting the row and and deleting the row and adding as per the requeirement
+
+
+
+Append sTURCTURE
+-----------------------
+
+
+Creating includstructure 
+-----------------------------
+- se11
+- data type- ZINSTR_28
+- click on create
+- click on green tick
+- structure  ZINSTR_28
+- ShortDescription-= Includ Structure for Order Tables
+Component  Typing method      Component Type       Data type
+DNO         Types             ZDEDN_28
+DDATE       Types             ZDEDDATE_28
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+
+
+
+- go to se11
+
+- Database table - ZORDH_28
+- click on change
+- short description - Order Heder Table
+In Delivery and Mainetenance
+- Delivery class - A
+- Data Browser/Table View Editing- Display/Maintenance Allowed
+- click on fields
+
+In fileds
+
+Field            key Init        Dataelement   Data Type   Length    Decimal    Coording    shorDescriptoin
+MANDT             -               MANDT         CINT
+ONO               -              ZDEONO_28     NUMC
+ODATE                            ZDEODATE_28   DATS
+.INCLUDE                         ZINSTR_28    STRU
+DNO                              ZDEDN_28     NUMC
+DDATE                            ZDEDDATE_28   DATS
+PM                               ZDEPM_28      CHAR
+TA                               ZDETA_28      CURR
+CURR                             ZDECUR_28     CKY
+
+- On top click on append structure
+- Appen Name  ZAPPEND_STR_28
+- Click on ok
+- Short Description-  Append Structure 
+
+Component  Typing method      Component Type       Data type
+DLOC         Types             ZDEDLOC_28
+
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+
+
+Field            key Init        Dataelement   Data Type   Length    Decimal    Coording    shorDescriptoin
+MANDT             -               MANDT         CINT
+ONO               -              ZDEONO_28     NUMC
+ODATE                            ZDEODATE_28   DATS
+.INCLUDE                         ZINSTR_28    STRU
+DNO                              ZDEDN_28     NUMC
+DDATE                            ZDEDDATE_28   DATS
+PM                               ZDEPM_28      CHAR
+TA                               ZDETA_28      CURR
+CURR                             ZDECUR_28     CKY
+.APPEND                          ZAPPEND_STR_28
+
+
+
+Creating Table Generator
+-----------------------------
+
+Table Maintenance Generator
+------------------------------
+- se11
+- database table ZORDH_28
+- click on change
+- cilck on utitlies, click on table maintenance generator, delete the table
+- again  repeat the step to create 
+- se11
+- database table ZORDH_28
+- click on change,cilck on utitlies, click on table maintenance generator
+- In authorization group you can choose $NC$ (which is given by your team)
+- function group - ZORDH_28(table name)
+- Maintenace type
+   . One step - choose
+   . two step - if you choose this
+- click no find scr number on top
+- click on green tick
+- Now you can see in Maint screen no 
+  overview screen - as 1
+  single screen - here you will see 2 if you choose 2 step
+- click on create on top
+- click on save as local object
+- When you get request completed sucessfully on bottom,
+  table maineteance generator is created
+
+
+
+- Now go to SM30
+- TABLE/VIEW - ZORDH_28
+- click on maintain
+- click on new entries
+
+Order Number	Order Date	Delivery Number	Delivery Date	Payment Mode	Total Amount	Currency	Delivery Location
+1	10-01-15	10	12-01-15	Credit Card	500	INR	Mumbai
+2	10-01-15	11	12-01-15	Debit Card	1000	INR	Mumbai
+3	11-01-15	12	12-01-15	Debit Card	2000	INR	Ahmedabad
+4	11-01-15	13	12-01-15	Net Banking	3000	INR	Ahmedabad
+5	11-01-15	14	12-01-15	Net Banking	4000	INR	Kolkatta
+
+
+View -> A view is virtual table.
+        A view is a logical database.
+        It does not have any data.
+
+Differece b/w table and View -> Table has data. View does not have any data.
+
+1) Database View -> It is a collection of one or more database tables.
+
+   Pre-requisite -> Tables should have a relationship between them. 
+
+2) Projection View -> It is applicable to single table.
+                      Select those fields which are required.
+
+3) Maintenance View -> It's purpose is to maintain multiple tables.
+
+  Pre-requisite -> Tables should have a relationship between them.  
+   MANDT field is required.
+   
+4) Help view -> It is used in search helps.
+   
+   Pre-requisite -> Tables should have a relationship between them.
+
+Imp Point for Maintenance View and Help View : Not More than one record should exist in the dependent/Secondary table. 
+
+
+Q-1 : In which scenario - Database View = Projection View.
+Answer : If we are creating database view for a single table, In that case Database View = Projection View.
+
+
+Q-2 : In which type of View content button is disabled?
+Answer : Contents button in disabled in Help view. Help view will display the contents when it is used in search help.
+
+Database View	
+Field Description	Reference Table
+Order Number	Order Header Table
+Order Date	Order Header Table
+Delivery Number	Order Header Table
+Delivery Date	Order Header Table
+Payment Mode	Order Header Table
+Total Amount	Order Header Table
+Currency	Order Header Table
+Delivery Location	Order Header Table
+Order Item Number	Order Item Table
+Order Description	Order Item Table
+Item Cost	Order Item Table
+
+
+Database View:
+
+Database View	
+Field Description	Reference Table
+Order Number	Order Header Table
+Order Date	Order Header Table
+Delivery Number	Order Header Table
+Delivery Date	Order Header Table
+Payment Mode	Order Header Table
+Total Amount	Order Header Table
+Currency	Order Header Table
+Delivery Location	Order Header Table
+Order Item Number	Order Item Table
+Order Description	Order Item Table
+Item Cost	Order Item Table
+
+
+- se11
+- view- ZDV_ORDER_28
+- Click on create
+- choose database view
+- Databaseview -ZDV_ORDER_28
+- ShortDesccription- Database View for Order Details
+
+Tables
+ZORDH_28
+
+- Click ono relation shoip 
+You can see
+ ZORDI_28 will be appeared autoamticall, because we have maintained relationshiop
+- select the dependent table and click on cipy 
+
+
+Tables            join coinditions 
+ZORDH_28          ZORDH_28            MANDT       ZORDI_28    MANDT
+                  ZORD_28             ONO         ZORDI_28    ONO
+- CLICK ON view fields, click on table fields
+- choose first table ZORD_28 and select all the columnds
+- now click on table fields and second ZORDI_28 table and selct rest fo the columnts which is not comond
+
+
+View field       table     File         Data element             
+ ONO             ZORDH_28   ONO          ZDEONO_28
+ ODATE           ZORDH_28   ODATE        ZDEODATE_28
+ DNO             ZORDH_28   DNO          DEDN_28
+ DDATE           ZORDH_28    DDATE        ZDEDDATE_28
+ PM              ZORDH_28   PM            ZDEPM_28
+ TA              ZORDH_28   TA            ZDETA_28
+ CURR            ZORDH_28   CURR          ZDECUR_28
+ DLOC            ZORDH_28   DLOC          ZDEDLOC_28
+ OIN             ZORDI_28   IN            ZDEOITMNO_28
+ ODESC           ZORDI_28   ODESC         ZDEODESC_28
+ ICOST           ZORDI_28   ICOST         ZDEOICOST_28
+
+
+
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+- click on contents, click on execute 
+
+
+Order Number Oderdate Delivery Number Delivery Date Payment Mode  Totalamount Currency Delivery Location Order item number  order description  itemcost
+
+
+
+Projection view:
+Projection View	
+Field Description	Reference Table
+Order Number	Order Header Table
+Order Date	Order Header Table
+Delivery Number	Order Header Table
+Delivery Date	Order Header Table
+
+
+- se11
+- view- ZPV_ORDER_28
+- Click on create
+- choose projection view
+- Databaseview -ZPV_ORDER_28
+- ShortDesccription- Projection View for Order Details
+- Basis table ZORDH_28
+- click on table fiewlds
+- choose order no , order date, delivery no and delivery columns
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+- click on contents, click on execute 
+
+
+
+
+
+Maintenancy view
+------------------
+
+- se11
+- view- ZMV_ORDER_28
+- Click on create
+- choose Mainetnance view
+- Databaseview -ZMV_ORDER_28
+- ShortDesccription- Maintenacy View for Order Details
+- ShortDesccription- Database View for Order Details
+
+Tables
+ZORDH_28
+
+- Click ono relation shoip 
+You can see
+ ZORDI_28 will be appeared autoamticall, Relationships with unsuitable cardinality
+
+So we have to create new tables 
+
+
+Maintenance View									
+Field Description	Reference Table								
+Client Number	Project Details 1								
+Project Number	Project Details 1								
+Project Description	Project Details 2								
+Project Location	Project Details 2								
+									
+Project Details 1									
+Field Description	Key	Data type	Length	Possible Values					
+Client Number	Y	CLNT	3						
+Project Number	Y	NUMC	8						
+									
+Project Details 2									
+Field Description	Key	Data type	Length	Possible Values					
+Client Number	Y	CLNT	3						
+Project Number	Y	NUMC	8						
+Project Description	N	CHAR	40						
+Project Location	N	CHAR	3	MUM = Mumbai, AHD = Ahmebabad,KOL = Kolkatta					
+
+
+
+Logic:				
+Create the above mentioned Tables and assign the Primary Foreign Key Relationship.				
+Create a Maintenance View With the help of above 2 tables.				
+Create a table Maintenance Generator of the view and insert the following entries.				
+				
+				
+Project Number	Project Description	Project Location		
+1	Sales	Ahmedabad		
+2	Marketing	Mumbai		
+3	Human Resources	Kolkatta		
+
+
+
+
+
+
+For domina of Project no 
+--------------
+- SE11
+- select domain- ZDPN_28
+- click on create
+- short descp - Project number
+- Data type - NUMC
+- No of character 8
+
+- click enter
+Notectrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+- click on save  save it as local object
+- you can check the syntax chekc button 
+- click on activate	
+
+
+
+Creation of Dataelement for Project no:
+--------------------------------------------------
+- se11
+- data type  ZDEPN_28
+- click on create
+- Data elment ZDEPMN_28
+- short description opORJECT NOUMBER
+-  domain -ZDPN_28
+- data type NUMC
+- Length -8
+- click on field label
+- short    Project No
+- Medium   Project Number
+- long     Project Number
+- Heading  Project Number
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+
+
+
+Creation of Dataelement for Project description:
+--------------------------------------------------
+- se11
+- data type  ZDEPDESC_28
+- click on create
+- Data elment ZDEPDESC_28
+- short description opORJECT NOUMBER
+-  domain - ZODESC_28
+- data type NUMC
+- Length -8
+- click on field label
+- short    Project Desc
+- Medium   Project Description
+- long     Project Description
+- Heading  Project Description
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+
+
+
+
+Creation of Dataelement for Project Location:
+--------------------------------------------------
+- se11
+- data type  ZDEPLOC_28
+- click on create
+- Data elment ZDEPLOC_28
+- short description opORJECT NOUMBER
+-  domain - ZDLOC_28
+- data type NUMC
+- Length -8
+- click on field label
+- short    Project Location
+- Medium   Project Location
+- long     Project Location
+- Heading  Project Location
+- ctrl +s for save, ctl+f2 for sytax check and ctl+f3 for activation
+
+
+Creating  table for projec1
+----------------------------
+- se11
+- database table ZTRPRJ1_28
+- click on create
+- short description- Project details-1
+- delivery class -a
+- data browser/table view editing- Display Maintenance allowed with allowed
+
+- click on fields
+In fileds
+
+give below
+
+Field            key Init        Dataelement   Data Type   Length    Decimal    Coording    shorDescriptoin
+MANDT             -               MANDT         CINT       3
+PNO               -              ZDEPN_28       NUMC
+
+
+- click on techinical settings, clic on save
+In General Properties
+- data class - APPL0
+- Size catageroy- 0
+- clic on save
+- click on back button
+- again click on save
+- click on syntax check
+
+
+
+Creating table 2 for project2 
+----------------------------
+- se11
+- database table ZTRPRJ2_28
+- click on create
+- short description- Project details-1
+- delivery class -a
+- data browser/table view editing- Display Maintenance allowed with allowed
+
+- click on fields
+In fileds
+
+give below
+
+Field            key Init        Dataelement   Data Type   Length    Decimal    Coording    shorDescriptoin
+MANDT             -               MANDT         CINT       3
+PNO               -              ZDEPN_28       NUMC
+PDESC                            ZDEPDESC_28
+PLOC                             ZDEPLOC_28
+
+
+- click on techinical settings, clic on save
+In General Properties
+- data class - APPL0
+- Size catageroy- 0
+- clic on save
+- click on back button
+- again click on save
+- click on syntax check
+
+
+- Now got to second table
+- select PNO click on foreign key option
+- check table - ZTPROJE1_28L, Click on create proposal
+ you will see the releation of primary key
+- cardinalty- 1:1
+- click on save, click on check syntax, click on activate
+
+
+Creating Maintenance View
+=============================
+- SE11
+- View ZMV_PROJ_28
+- click on create
+- choose maintenancy view
+- maintenancey view - ZMV_PROJ_28
+- shORT DEscriptoniL  Maintenace view for project details
+
+Tables
+ZTRPRJ1_28
+
+
+- Click ono relation shoip 
+You can see
+ ZTRPRJ2_28  depenedt table
+- choose the dependta table and
+- click on copy
+                     Joine condition
+Ttalbes               Table          Field name      Table    field name
+ZTRPRJ1_28           ZTRPRJ1_28      MANDT         ZTRPRJ2_28  MANDT
+ZTRPRJ2_28           ZTRPRJ1_28      PNO           ZTRPRJ2_28  PNO
+
+- click on view fields
+- click on table fields
+- select the all the columns of second table
+- click on copy 
+- click on save, click on syntac, click on activeate
+
+View feld       talbe            fiel               data element
+MAND           ZTPROJ1_28        MANDT                MANDT
+PNO            ZTPROJ1_28        PNO                  ZDEPN_28
+PDESC          ZTPROJ2_28        PDESC                ZDEPDESC_28
+PLOC           ZTPROJ2_28        PLOC                 ZDEPLOC_28
+
+
+Creating table Manintenance Generator
+-------------------------------------------
+
+- se11
+- database table ZMV_PROJ_28
+- click on change
+- click on change,cilck on utitlies, click on table maintenance generator
+- In authorization group you can choose $NC$ (which is given by your team)
+- function group - ZMV_PROJ_28(table name)
+- Maintenace type
+   . One step - choose
+   . two step - if you choose this
+- click no find scr number on top
+- click on green tick
+- Now you can see in Maint screen no 
+  overview screen - as 1
+  single screen - here you will see 2 if you choose 2 step
+- click on create on top
+- click on save as local object
+- When you get request completed sucessfully on bottom,
+  table maineteance generator is created
+
+
+- click on utitlitem, click on contents from TMG
+
+or 
+- you can go sm30
+- table/view ZMV_PROJ_28
+- CLICK ON MAINTAIN
+- click on new entries
+- 
+
+Project Number	Project Description	Project Location		
+1	Sales	Ahmedabad		
+2	Marketing	Mumbai		
+3	Human Resources	Kolkatta		
+
+
+
+
 
