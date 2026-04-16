@@ -2097,7 +2097,7 @@ Note -when ever you are placing default value pleaser uncheck Importing check ox
 
 Requirement for instead payment mode i need billing mode so we use 
  modify so that we can apply another data element 
-
+====================================================================
 - se11
 - data type- ZDEBM_28
 - click on create
@@ -2119,8 +2119,8 @@ length 1
 
 Assigning serach to table
 - got to ZORDH_28
-- click on serach help
-- serach help name ZDEBM_28
+- Select on the ODNO column click on serach help
+- serach help name ZHORDERNO_28
 - click on right click
 - click  on copy
 - activating, 
@@ -2129,13 +2129,289 @@ Assigning serach to table
 
 
 
+Assinging serach help with help of poorgrame:
+
+- SE38
+- Program ZPRG_ASSIGN_SEARCH_HELP
+- click on create
+- Tile - Assigning
+- Type- Executable
+- click on save
+- 
+
+REPORT ZPRG ASSIGN SEARCH HELP.
+PARAMETERS: p_ono TYPE ZDEONO_28 MATCHCODE OBJECT ZHORDERNO_28
+
+- activate and  CLICK ON RUN
+
+
+
+Search Help - Creation of Collective Search Help
+======================================================
+
+-se11
+- in serach help- ZHORDERNO_28
+- click on copy
+- From 
+ Serach help ZHORDERNO_28
+ to 
+ Searh  help ZHORDERNO_28_2
+- click on green tick
+- clck on change
+
+
+- Now you will see the secondary search help
+
+
+Search help
+- se11
+- search help - ZHORDERNO_28_2
+- click on create
+- Choose elementry search help
+- Element search -ZHORDERNO_28_2
+- short description- search help for oder number
+- selection Method- ZORDH_28
+- Dialog type- 
+  Dialog depends on set of values
+.  Display values immediately
+  Dialog with value restriction
+
+
+- Parameter
+
+Search help parameter    IMP EXP  Lpos Spos SDI   Defualt value datelemet 
+- ONO                     -   -    1    1                         ZDEONO_28
+- ODATE                   -   -    2    2                         ZDEODATE_28
+- PM                          -    3    3    -    c                zdebm_28
+- TA                      -   -    4    4                          ZDEA_28
+- CURR                    -   -    5    5                          ZDECUR_28
+
+-Save ,check the syntax, click onactiveate
+
+- click on run on top , click on green
+- it will show the values
+
+
+
+Now create collective search help
+
+- SE11
+-serach help ZHCOLLETIVE_28
+- click on create
+- choose collective seracah
+- collective help ZHCOLLETIVE_28
+- short description - Collective serach help for oder number
+-
+search help          hiddne     shortext
+
+ZHORDERNO_28
+ZHORDERNO_28_2
+- save ,activate
+- click on run
+
+
+
+Using help view create Search help to see the conents:
+===========================================================
+
+- serach help = ZHPROJECT_28
+- CLICK on create
+- choose elementary search help
+- Elementry ZHPROJECT_28
+- short description - Serach help for project number
+
+- selction method - ZGV_ORDER_28
+- Dialog type Display values immeddiately
+- serach help meter
+choose all
+ 
+Search help parameter    IMP EXP  Lpos Spos SDI   Defualt value datelemet 
+- PNO                     -   -    1    1                         ZDEONO_28
+- PDESC                   -   -    2    2                         ZDEODATE_28
+- PLOC                          -    3    3    -    c                zdebm_28
+
+- Save, activate, 
+- click on run
 
 
 
 
+Topic : Table Buffering
+
+Buffer is a temperory storage on the application layer. 
+It improves the performance when accessing the data records contained in the table. 
+
+Buffering Options:
+
+1) Buffering not allowed-> Table buffering is not performed for the table.
+2) Buffering switched on-> Table buffering is performed for the table.
+3) Buffering allowed, but switched off-> Buffer is allowed but it is switched OFF 
+                                        and can be switched ON anytime according to the requirement of customer.
+ 
+Types of Buffering:
+
+1) Single Record buffering -> Single Record will be in the buffer.
+
+When to Use Single Record Buffering ->
+
+Single-record buffering should be used for tables where only a few records are accessed by specifying the complete key. 
+
+Advantage -> It will ocucupy less memory on the application layer.
+Disadvantage -> Number of iterations will not be reduced between Application layer and database layer, 
+                if we are not fetching the same record.
+
+
+2) Full Buffering -> Full table will be in the buffer.
+
+When to Use Full Record Buffering->
+
+When you decide to fully buffer a table, you must take into account the size of the table,  
+Tables that are best suited to full buffering are frequently accessed and rarely changed.
+
+A table which stores transaction data should not be opted for Full buffering.
+
+Advantage -> Number of iterations between Application and database layer will  be significantly reduced.
+Disadvantage -> It will occupy more memory on the application Layer.
+
+
+3) Generic area buffering -> All Records matches the generic key are loaded in the buffer.
+
+
+When To Use Generic Buffering:
+
+For Generic areas( Language Dependent tables)
+
+Imp Point : The numbers of key field for a generic area buffering is less than the primary keys of the table.
+
+Transaction Code to check the Buffer -> AL12( Path : Monitor->Buffers->Table Buffer->
 
 
 
+Table Buffering
+
+Buffer is a temporary storage on the application layer.
+It improves the performance when accessing the data records contained in the table.
+Sometimes, we need to access a particular set of records more frequently than others.
+Accessing records directly from a database table can be very time-consuming.
+To overcome this drawback, the frequently accessed records of a table can be placed in a buffer from which they can be accessed easily.
+
+
+Buffering Options
+
+
+Table buffering is the part of technical settings of the table.
+The various buffering options are as follows:
+Buffering not allowed - Table buffering is not performed for the table.
+Buffering switched on - Table buffering is performed for the table.
+Buffering allowed, but switched off - Buffer is allowed but it is switched off and can be switched on anytime according to the requirement of customer.
+
+
+Types of Table Buffering
+
+There are 3 types of table buffering:
+Single record buffering
+Full buffering
+Generic area buffering
+
+
+Single Record Buffering
+
+In case of single record buffering single record loads in the buffer at a time.
+When to use - Single record buffering should be used for tables where single records are accessed by specifying the complete key. 
+Advantage - This type of buffering requires less memory on application layer.
+Disadvantage - There is no significant reduction in number of database access.
+
+
+Full Record Buffering
+
+In case of full buffering full table records load in the buffer.
+When to use - Tables that are best suited to full buffering are frequently accessed and rarely changed. A table which stores transaction data should not be opted for full buffering.
+Advantage - There is significantly reduction in number of database access. 
+Disadvantage - This type of buffering requires more memory on application layer.
+
+Generic Area Buffering
+
+In case of generic area buffering the records matches the generic key are loaded in the buffer.
+When to use : For generic areas like - language dependent tables.
+In case of generic area buffering we need to pass the number of key fields.
+The number of key field for a generic area buffering is less than the primary keys of the table.
+
+
+Transaction Codes for Table Buffering
+
+Transaction code to check the table buffer :  AL12
+       (Monitor-Buffers-Table Buffer)
+The transaction code to reset the table buffer : /$TAB
+
+
+
+Buffering:
+Single Record buffering -
+- SE11
+- GO TO Database table zordh_28
+- CLICK or change
+- click on techinical settings
+- buffering
+  bufering not allowe
+ bufeerin allowed but switched off
+ . bufferin activated
+-  buffering type
+ .singel recordds buffered
+ generic aread buffered
+ fully buffered
+- click on save
+- go to back button
+- check syntax
+- click on activate
+
+
+
+- al12 
+- clic on monitor, clikc on buffers, click on table bugger, click on single object display
+- table name ZORDH_28
+-
+
+
+
+- SE38
+- PROGRAME
+- click on display
+- order number  -1
+- program
+
+
+- now go ack al12
+- and refesh
+ you will see order number
+
+to check the content
+- monitor- buffer- table buffer- buffer content
+- table  ZORDH_28
+- click on continue
+
+
+
+
+Full Buffering:
+
+
+
+- SE11
+- GO TO Database table zordh_28
+- CLICK or change
+- click on techinical settings
+- buffering
+  bufering not allowe
+ bufeerin allowed but switched off
+ . bufferin activated
+-  buffering type
+ singel recordds buffered
+ generic aread buffered
+ .fully buffered
+- click on save
+- go to back button
+- check syntax
+- click on activate
 
 
 
