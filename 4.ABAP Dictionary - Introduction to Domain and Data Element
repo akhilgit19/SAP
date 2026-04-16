@@ -2347,6 +2347,7 @@ The transaction code to reset the table buffer : /$TAB
 
 Buffering:
 Single Record buffering -
+--------------------------
 - SE11
 - GO TO Database table zordh_28
 - CLICK or change
@@ -2394,7 +2395,7 @@ to check the content
 
 Full Buffering:
 
-
+----------------
 
 - SE11
 - GO TO Database table zordh_28
@@ -2413,6 +2414,9 @@ Full Buffering:
 - check syntax
 - click on activate
 
+
+Table Buffering - Generic Area Buffering Part1
+================================================
 
 
 
