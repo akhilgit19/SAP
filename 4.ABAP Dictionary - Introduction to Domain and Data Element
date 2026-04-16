@@ -1916,5 +1916,229 @@ Project Number	Project Description	Project Location
 
 
 
+Help view -> It is used in search helps.
+   
+   Pre-requisite -> Tables should have a relationship between them.
+
+Imp Point for Maintenance View and Help View : Not More than one record should exist in the dependent/Secondary table. 
+
+
+
+Help view
+- SE11
+- View- ZHELPV_ORD_28
+- Click on create
+- choose help view
+- Help view ZHELPV_ORD_28
+- short description- Help View for oder detials
+- Tables
+zordh_28
+
+- click on relationsships
+
+your will get relationships with unsutiable cariindality
+
+So give below table
+
+- Tables
+ZTRPRJ1_28
+
+- click on relationsships
+
+your will get dependent tables ZTRPRJ2_28
+- click on copy
+
+
+                     Joine condition
+Ttalbes               Table          Field name      Table    field name
+ZTRPRJ1_28           ZTRPRJ1_28      MANDT         ZTRPRJ2_28  MANDT
+ZTRPRJ2_28           ZTRPRJ1_28      PNO           ZTRPRJ2_28  PNO
+
+
+
+- click on view fields, delete MANDT as it is not required for helop
+- click on table fields
+- select the all the columns of second table
+- click on copy 
+- click on save, click on syntac, click on activeate
+
+View feld       talbe            fiel               data element
+PNO            ZTPROJ1_28        PNO                  ZDEPN_28
+PDESC          ZTPROJ2_28        PDESC                ZDEPDESC_28
+PLOC           ZTPROJ2_28        PLOC                 ZDEPLOC_28
+
+
+
+- click on save, click on syntac, click on activeate
+
+
+
+
+                                                      Topic : INDEX
+
+A Index is created to give the high performance.
+
+Types of Index -> 1)  Primary Index -> Primary Key Will act as a Primary Index.
+                  2)  Secondary Index -> Based upon the requirement , We will create secondary Indexes.
+
+Disadvantage -> Index will occupy space on the database Layer.
+
+
+A Index name is 3 characters long.
+
+Index will store like this - Table name~Index name( Example - ZEMPTABLE~ABC , Where ZEMPTABLE is table name , ABC is Index name).
+
+
+Index for all database systems-> Index will be created on all the databases.
+Index for Selected database systems-> We can choose database, where we want to create the index.
+No database Index-> Index will remove from the database, It's definition will be there.
+
+
+-se11
+- database table - ZORDH_28
+- Click on change mode
+- click on index
+-- you will have button to create index click on that
+- table name- ZORD_28
+  INDEX name- ODT
+- click on okay
+- Index Name ZORD_28
+- Short Description- Index for Order Date Column
+- Non unique index
+ . Index on all database systems
+  for selected database systems
+  no database index
+
+Field name          Short Description
+ODATE               Ordet Date
+
+
+- click on save, check sntax, click on active
+
+Now you willl see mess, Inde ZORD_28~ODT exist in database system HDB
+
+
+
+
+Search help -> It is also called as F4 help. It's purpose is to display the various 
+               possible values for any Input field.
+
+Types of Search Help -> a) Elementary Search help-> Single search help.
+                        b) Collective search help-> It is a combination of elementary search helps.
+
+Selection Method -> It is the name of the table or name of the view from where we are fetching the data.
+
+Dialog Type ->
+
+Display values Immediately -> Values will display Immediately.
+Dialog with values restriction -> Before displaying the values, restriction dialog will appaer.
+Dialog depends upon set of values -> If the table has less than 100 values ,It will switch to Display values Immediately.
+                                     If the table has greater than 100,It will switch to Dialog with value restriction. 
+
+
+Search Help Parameter - Field of Search Help.
+
+LPOS -> List position( When values got displayed) 
+
+SPOS->  Screen position( Before displaying the values)
+
+Modify -> It's purpose is to modify the data element.
+
+SDI's -> It's purpose is to make any field in the read only mode.
+
+Default value -> To provide the default values.
+
+Importing -> Input
+
+Exporting ->To Export the values from the hit list to the screen fields(Input fields).
+
+Hot Key -> The hot key permits the user to select an elementary search help from the collective search help directly in the 
+
+input field with the short notation
+
+
+
+
+Search help
+- se11
+- search help - ZHORDERNO_28
+- click on create
+- Choose elementry search help
+- Element search -ZHORDERNO_28
+- short description- search help for oder number
+- selection Method- ZORDH_28
+- Dialog type- 
+  Dialog depends on set of values
+.  Display values immediately
+  Dialog with value restriction
+
+
+- Parameter
+
+Search help parameter    IMP EXP  Lpos Spos SDI   Defualt value datelemet 
+- ONO                     -   -    1    1                         ZDEONO_28
+- ODATE                   -   -    2    2                         ZDEODATE_28
+- PM                          -    3    3    -    c                zdebm_28
+- TA                      -   -    4    4                          ZDEA_28
+- CURR                    -   -    5    5                          ZDECUR_28
+
+-Save ,check the syntax, click onactiveate
+
+- click on run on top , click on green
+- it will show the values
+
+For   Dialog with value restriction
+you wills see another pop up with restriction
+
+
+Note -when ever you are placing default value pleaser uncheck Importing check ox
+    - SDI's -> It's purpose is to make any field in the read only mode.
+
+
+Requirement for instead payment mode i need billing mode so we use 
+ modify so that we can apply another data element 
+
+- se11
+- data type- ZDEBM_28
+- click on create
+- data elemetn ZDEBM_28
+- Short Description Billing Mode
+- In data type
+domain - ZPM_28
+data type - char
+length 1
+- In Feield lab
+-short   Billing mode
+ medium   Billing mode
+ long     Billing mode
+ heading  Billing mod
+- save , syntax ,activeate
+
+
+
+
+Assigning serach to table
+- got to ZORDH_28
+- click on serach help
+- serach help name ZDEBM_28
+- click on right click
+- click  on copy
+- activating, 
+- click on contents
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
