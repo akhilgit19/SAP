@@ -2418,7 +2418,215 @@ Full Buffering:
 Table Buffering - Generic Area Buffering Part1
 ================================================
 
+- go to se11
+- Transparent table - ZMATDESC2
+- In Fields
+Field           key      Ini    DataElement     DataType  Lenght
+MANDT             -       -         MANDT         CLNT      3
+SPRAS             -       -         SPRAS         LANG      1
+PID               -       -         ZDEPID        NUMC      10
+PDESC                             ZDEPDESC      CHAR      40
+
+- Click on technical setting
+- 
+- buffering
+  bufering not allowe
+ bufeerin allowed but switched off
+ . bufferin activated
+-  buffering type
+ singel recordds buffered
+. generic aread buffered        Number of key fields 2
+ fully buffered
+- click on save
+- go to back button
+- check syntax
+- click on activate
+
+- click on contents of the table beseid technical settings
+- you will see table contents
+
+CI  Langeug       Product ID    Product Description
+900   D           00000001       TEST
+900   D           00000002       TEST
+900   e           00000001       TEST
+900   e           00000002       TEST
+900   j           00000001       TEST
+900   j           0000002       TEST
+
+- SE38
+- PROGRAME
+- click on display
+
+SELECT pid pdesc
+FROM zmatdesc_2
+INOT TABLE it_data
+WHERE spras = sy-langu
+AND pid = p_pid.
+
+- productid   -1
+- program
 
 
+- now go ack al12
+- and refesh
+ you will see order number
+
+to check the content
+- monitor- buffer- table buffer- buffer content
+- table  ZMATDESC2
+- click on continue
+- you will see generic buffer
+
+900   e           00000001       TEST
+900   e           00000002       TEST
+
+
+
+
+Important Points for Table Buffering
+---------------------------------------
+
+-Whenever we want to stop the buffering of a table , 
+choose the radio button buffering allowed but switched off rather than 
+buffering not allowed. 
+
+-Never use the transaction code /$TAB to reset the buffer of specific
+tables, as this transaction code reset the buffer of all the tables. 
+Pass the specific table in AL12 transaction code to reset the buffer. 
+( Edit - Reset Buffer - Table Buffer ).
+   
+
+
+
+To reset the buffer:
+======================
+- /nal12
+- click on editm, click on reset buffer- click on table buffwer
+- table - ZORDH_28
+- Click on invalidate
+
+
+- now go ack al12
+to check the content
+- monitor- buffer- table buffer- buffer content
+- table  ZORDH_28
+- click on continue
+- content will gone now
+
+
+Transaction Codes for Table Buffering
+=============================================
+
+Transaction code to check the table buffer :  AL12
+       (Monitor-Buffers-Table Buffer)
+The transaction code to reset the table buffer : /$TAB
+
+
+
+
+Topic : Lock Objects
+========================
+Locking -> If multiple users want to change the same data at the same time , 
+           then at a time only one user can change the data. The purpose of locking is to achieve synchronization.
+
+Lock object name should start with E.( EZ or EY).
+
+While creating a Lock Object, SAP automatically create 2 FM's. 
+
+ENQUEUE_Lock Object name -> For Locking.
+DEQUEUE_Lock Object name -> For Unlocking.
+
+Lock Modes : 1) Read Lock( Shared Lock , S) - Others user can view the data, but can not changed the data.
+             2) Write Lock( Exclusive lock , E) - Others user can not view the data and can not changed the data.
+             3) Enhanced Wr‪ite Lock( Exclusive lock without cumulation,X) - Others user can not view the data and can not changed the data + 
+                                                                          It protect the further access for the same transaction.
+
+
+SM12 -> To see the lock entries.
+
+
+Lock Objects :
+--------------
+The purpose of lock objects is to achieve synchronization.
+If multiple users want to change the same data at the same time ,then at a time only one user can change the data.
+Lock objects name starts with a prefix ‘E’.
+When we want to create customized lock objects, the name must start with EZ or EY.
+The transaction code to see the lock entries is SM12. 
+
+
+Lock Modes :
+-------------
+There are 3 lock modes:
+Read lock.
+Write lock.
+Enhanced write lock.
+
+
+
+- SM12
+- 
+Client - 900
+Username - RMETHA
+Table name
+Lock Argument 
+Number of Locks
+
+- click on serach
+- You willl see no lock tables
+lock table(0)
+
+- SE11
+- Datablase table ZORDH_28
+- short description - Order Heder Table
+In Delivery and Mainetenance
+- Delivery class - A
+- Data Browser/Table View Editing- Display/Maintenance Allowed
+- click on fields
+In fileds
+
+Field            key Init        Dataelement   Data Type   Length    Decimal    Coording    shorDescriptoin
+MANDT             -               MANDT         CINT
+ONO               -              ZDEONO_28     NUMC
+ODATE                            ZDEODATE_28   DATS
+PM                               ZDEPM_28      CHAR
+TA                               ZDETA_28      CURR
+CURR                             ZDECUR_28     CKY
+
+
+- click on change
+- now if you go to SM12 you can see local entries fo the table
+- Now again in SE1
+- now clikc on back after changes
+- now check in sm12, the local entry will be remvoed
+
+
+Read Lock
+
+Read lock is also called as shared lock.
+The default value of read lock is ‘S’.
+In case of read lock, other users can display the data, but they can not change the data.
+
+
+Write Lock
+
+Write lock is also called as exclusive lock.
+The default value of write lock is ‘E’.
+In case of write lock - other users can not display and change the data.
+Write lock can be requested several times from the same transaction and are processed successively.
+
+
+Enhanced Write Lock
+
+Enhanced Write lock is also called as exclusive lock without cumulation.
+The default value of write lock is ‘X’.
+In case of enhanced write lock - other users can not display and change the data. Additionally, it protects the further access of the same transaction.
+Enhanced Write lock can be requested only once from the same transaction and can not be processed successively.
+
+
+Lock Modes Summary  tlable 
+Lock mode                Also called                        Def val    READ write
+Read lock                shared lock                           S       yes  no
+write lock               exclusive lokc                        E       no   no
+enhanced write lock      exclusive lock without cumulation     x       no   no
 
 
