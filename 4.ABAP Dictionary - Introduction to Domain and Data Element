@@ -3224,9 +3224,13 @@ P_NO           1
 
 This means another user cannot work on same record.
 
+To get messag as who is using the lock
 
+In variable1
+Varialbe 1  Varialbe 2
 
-
+variable 
+SY-MSGV1     RMehata
 
 
 
