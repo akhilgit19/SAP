@@ -2630,3 +2630,603 @@ write lock               exclusive lokc                        E       no   no
 enhanced write lock      exclusive lock without cumulation     x       no   no
 
 
+Lock Object Function Modules
+===============================
+Whenever we activate a lock object, SAP generates 2 function modules. 
+One with ENQUEUE_lock object name and another with DEQUEUE_lock object name. 
+Example - Suppose lock object name is EZ_VBELN , then the 2 generated function modules are - ENQUEUE_EZ_VBELN , DEQUEUE_EZ_VBELN. 
+Enqueue function module is used for locking and dequeue function module is used for unlocking.
+
+
+- /nse11
+- Database table- zordh_28
+- click on contents before technical settings
+-
+
+MANDT     ONO       ODATE       PM       TA    CURR
+900    000000001   28.02.2023     n    1000,0   in 
+900    000000001   28.02.2023     C    1000,0   in 
+900    000000001   28.02.2023     C    1000,0   in 
+900    000000001   28.02.2023     d    1000,0   in 
+900    000000001   28.02.2023     C    1000,0   in 
+900    000000001   28.02.2023     C    1000,0   in 
+
+Requirement:
+-------------
+Now we will develop a program that program will change payment mode of odrer numbers
+so we will develop a locking on the table
+
+- go to /nse11
+- lock object - Should be EZ or EY(CUSTOME OBJECT) EZ_ORDER
+- click on create
+Dictionary: Change Object
+Lock object: EZ_Order
+Short Description: Lock Object for Order Number
+- click on tables
+primary table
+Name- ZORDH_28
+lock Mode- shared lock
+- click on lock paramater
+- You will see primary key of the table will be apearing
+Lock parameter      table          Field
+MANDT             ZORDH_28         MANDT
+ONO               ZORH_28           ONO
+- click on save as local object
+- click on activate the object
+
+
+Function Module Screen
+---------------------------
+- SE37
+- Function Module0 ENQUEUE_Z_Order.
+- Click on display
+- click on import
+Parameter Name Typing   Associated Type    Default value  
+MODE_ZORDH_28   TYPE    ENQMODE               S
+
+Here you willl see default value because you have chooded shared lock
+
+- SE37
+- Function Module0 DEQUEUE_Z_Order.
+- Click on display
+- click on import
+Parameter Name Typing   Associated Type    Default value  
+MODE_ZORDH_28   TYPE    ENQMODE              S
+
+
+- if you change write lock,  Default value will E
+- if you change to exclusive lock, default value will X
+
+
+
+So Now to create a programe to cahange the payment mode of odrer number
+------------------------------
+- Go  to SE38
+- program - ZCHANGE_ORDER_PROGRAME 
+- click on create
+- Title - To Change the payment mode
+- Orginal langguage- EN
+- Type- Executable programe
+- click on save
+- save as local object
+- 
+You will see ABAP EDITOR
+
+Note: for pno copyp the data elemenet for order no-ZDEONO_28 AND p_pm for payment mode elemnetZDEEPM_28 FROM below order 
+ header table.
+
+Transaparent table  ZORDH_28
+Short Description   Order Header Table
+In Fields
+Field     key Init     DataElement     Data type    lenth     Decimar
+MANDT                  MANDT
+ONO                    ZDEONO_28
+ODATE                  ZDEODATEE_28
+PM                     ZDEEPM_28
+TA                     ZDETAM_28
+CURR                   ZDECUR_28
+
+
+REPORT ZCHANGE_ORDER_PROGRAM
+
+PARAMETERS p_ono TYPE ZDEONO_28.
+
+PARAMETERS p_pm TYPE ZDEEPM_28.
+
+- click on chekc syntax
+- click on activate
+- click on run/execute buttong
+- click on activate
+- click on run/execute buttong
+
+ You will see two inputs now in the
+
+To Chang the Paymode of Order Numbers scnree
+P_ONO 
+P_PM
+
+- CLICK ON GOTO, click on text element
+- click on selection texts
+NAME             TEXT       ddic reference
+P_ONON        Order Number     -
+P_PM           Payment ode     -
+
+
+- click DDIC reference
+- click on save and activate
+
+-click on to pattern 
+Select Pattern
+ CALL FUNCTION -ENQUEUE_Z_Order.
+(TO get call function 
+ go se37
+ In function module- copy ENQUEUE_Z_Order and paste it in call function)
+
+ ABAP Object paterrn
+ message
+   class
+   type
+   Number
+- SELECT FROM 
+
+
+
+CONTROL +.  TO comment
+Control +, to unncoment
+
+PASS p_no to ONO
+
+
+REPORT ZCHANGE_ORDER_PROGRAM
+
+PARAMETERS p_ono TYPE ZDEONO_28.
+
+PARAMETERS p_pm TYPE ZDEEPM_28.
+
+CALL FUNCTION 'ENQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'X'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+EXCEPTIONS
+   FOREIGN_LOCK        = 1
+   SYSTEM_FAILURE      = 2
+   OTHERS              = 3
+IF sy-subrc <> 0.
+MESSAGE E000(ZMESSAGE).
+ELSE.
+  UPDATE ZORDH_28 SET PM = p_pm WHERE  ono = p_no.
+  IF sy-subrc = 0.
+  WRITE TEXT-000.
+  ELSE.
+  WRITE TEXT-001.
+  ENDIF.
+ENDIF.
+
+this step is for sy-subrc <> 0.
+To give the message
+---------------------------
+- /OSE91
+- Messsage Class -ZMESSAGE
+- click on create
+- slick on save as local object
+- click on messages
+No    Message sort Tex
+0011  The Order Number is already locked
+
+- Package-
+
+
+This step is for TEXT-000.
+- double click on TEXT-000.
+Sym Text
+000 Order Number Updated sucessfully
+0001 Order Number NO Updated sucessfully
+
+
+- click on sysntaxm and acitvate
+
+
+For releasing the lock:
+
+- Now click on pattern
+-
+
+Select Pattern
+ CALL FUNCTION -ENQUEUE_Z_Order.
+(TO get call function 
+ go se37
+ In function module- copy ENQUEUE_Z_Order and paste it in call function)
+
+ ABAP Object paterrn
+ message
+   class
+   type
+   Number
+- SELECT FROM 
+
+
+
+CONTROL +.  TO comment
+Control +, to unncoment
+
+PASS p_no to ONO
+
+
+REPORT ZCHANGE_ORDER_PROGRAM
+
+PARAMETERS p_ono TYPE ZDEONO_28.
+
+PARAMETERS p_pm TYPE ZDEEPM_28.
+
+CALL FUNCTION 'DEQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'X'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+ENDIF.
+
+- click on sysntaxm and acitvate
+
+
+
+TO change to shared lock in the program
+===================================
+
+REPORT ZCHANGE_ORDER_PROGRAM
+
+PARAMETERS p_ono TYPE ZDEONO_28.
+
+PARAMETERS p_pm TYPE ZDEEPM_28.
+
+CALL FUNCTION 'ENQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'S'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+EXCEPTIONS
+   FOREIGN_LOCK        = 1
+   SYSTEM_FAILURE      = 2
+   OTHERS              = 3
+IF sy-subrc <> 0.
+MESSAGE E000(ZMESSAGE).
+ELSE.
+  UPDATE ZORDH_28 SET PM = p_pm WHERE  ono = p_no.
+  IF sy-subrc = 0.
+  WRITE TEXT-000.
+  ELSE.
+  WRITE TEXT-001.
+  ENDIF.
+ENDIF.
+
+- Click on save and activate
+
+To check lock entries
+------------------
+- Now got SM12
+- 
+
+Client - 900
+Username - RMETHA
+Table name
+Lock Argument 
+Number of Locks
+click on serach 
+- you will xee 0 lock entries
+
+so put a break point( red point called for set/delete breakpoint) at CALL FUNCTION 'ENQUEUE_EZ_ORDER'
+====================================================================================================
+
+REPORT ZCHANGE_ORDER_PROGRAM
+
+PARAMETERS p_ono TYPE ZDEONO_28.
+
+PARAMETERS p_pm TYPE ZDEEPM_28.
+
+. CALL FUNCTION 'ENQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'S'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+EXCEPTIONS
+   FOREIGN_LOCK        = 1
+   SYSTEM_FAILURE      = 2
+   OTHERS              = 3
+IF sy-subrc <> 0.
+MESSAGE E000(ZMESSAGE).
+ELSE.
+  UPDATE ZORDH_28 SET PM = p_pm WHERE  ono = p_no.
+  IF sy-subrc = 0.
+  WRITE TEXT-000.
+  ELSE.
+  WRITE TEXT-001.
+  ENDIF.
+ENDIF.
+
+- click on run
+
+To Change the Payment Mode of  scfreen
+Order Nuber -1
+Payment Mode - N
+
+- click on execute
+
+Now it will take to debuggin scnree
+- click on desktop3
+
+
+. CALL FUNCTION 'ENQUEUE_EZ_ORDER'         
+ EXPORTING
+   MODE_ZORDH_28       = 'S'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+EXCEPTIONS
+   FOREIGN_LOCK        = 1
+   SYSTEM_FAILURE      = 2
+   OTHERS              = 3
+IF sy-subrc <> 0.
+MESSAGE E000(ZMESSAGE).
+ELSE.
+  UPDATE ZORDH_28 SET PM = p_pm WHERE  ono = p_no.
+  IF sy-subrc = 0.
+  WRITE TEXT-000.
+  ELSE.
+  WRITE TEXT-001.
+  ENDIF.
+ENDIF.
+
+
+
+Varialbe 1  Varialbe 2
+
+P_NO           1
+P_PM         N
+
+
+To check lock entries
+------------------
+- Now got SM12
+- 
+
+Client - 900
+Username - RMETHA
+Table name
+Lock Argument 
+Number of Locks
+click on serach 
+- you will xee 1 lock entries as you can see as shared even othere user can see it
+
+
+Write lock 
+-------------------
+
+- Go  to SE38
+- program - ZCHANGE_ORDER_PROGRAME 
+- click on chnage
+
+REPORT ZCHANGE_ORDER_PROGRAM
+
+PARAMETERS p_ono TYPE ZDEONO_28.
+
+PARAMETERS p_pm TYPE ZDEEPM_28.
+
+. CALL FUNCTION 'ENQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'X'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+EXCEPTIONS
+   FOREIGN_LOCK        = 1
+   SYSTEM_FAILURE      = 2
+   OTHERS              = 3
+IF sy-subrc <> 0.
+MESSAGE E000(ZMESSAGE).
+ELSE.
+  UPDATE ZORDH_28 SET PM = p_pm WHERE  ono = p_no.
+  IF sy-subrc = 0.
+  WRITE TEXT-000.
+  ELSE.
+  WRITE TEXT-001.
+  ENDIF.
+ENDIF.
+CALL FUNCTION 'DEQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'X'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+ENDIF.
+
+- Click save as object, click on syntax chec, clickon acitvate
+
+
+- Now go sm12
+- 
+
+Client - 900
+Username - RMETHA
+Table name
+Lock Argument 
+Number of Locks
+click on serach 
+- you will xee -0 lock entries as you can see as Enhanced even othere user can see it
+
+
+now got sm38
+- click on run 
+
+Varialbe 1  Varialbe 2
+
+P_NO               1
+P_PM         N
+
+
+
+
+
+
+Now it will take to debuggin scnree
+you will see SY-SUBRC -0 as you are the first user you are locking the order no -1
+- click on desktop3
+
+
+. CALL FUNCTION 'ENQUEUE_EZ_ORDER'         
+ EXPORTING
+   MODE_ZORDH_28       = 'S'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+EXCEPTIONS
+   FOREIGN_LOCK        = 1
+   SYSTEM_FAILURE      = 2
+   OTHERS              = 3
+IF sy-subrc <> 0.
+MESSAGE E000(ZMESSAGE).
+ELSE.
+  UPDATE ZORDH_28 SET PM = p_pm WHERE  ono = p_no.
+  IF sy-subrc = 0.
+  WRITE TEXT-000.
+  ELSE.
+  WRITE TEXT-001.
+  ENDIF.
+ENDIF.
+
+
+
+Varialbe 1  Varialbe 2
+
+P_NO           1
+P_PM         N
+
+
+
+- Now go sm12
+- 
+
+Client - 900
+Username - RMETHA
+Table name
+Lock Argument 
+Number of Locks
+click on serach 
+- you will xee -1 lock entries as you can see as Enhanced even othere user can see it
+lock time  client user       Mode talbe    lock argument
+22:44     900     RMEHTA    E     ZORDH_2
+
+so now if i login into another user RMETHA1
+=
+
+
+so put a break point( red point called for set/delete breakpoint) at CALL FUNCTION 'ENQUEUE_EZ_ORDER'
+====================================================================================================
+
+REPORT ZCHANGE_ORDER_PROGRAM
+
+PARAMETERS p_ono TYPE ZDEONO_28.
+
+PARAMETERS p_pm TYPE ZDEEPM_28.
+
+. CALL FUNCTION 'ENQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'E'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+EXCEPTIONS
+   FOREIGN_LOCK        = 1
+   SYSTEM_FAILURE      = 2
+   OTHERS              = 3
+IF sy-subrc <> 0.
+MESSAGE E000(ZMESSAGE).
+ELSE.
+  UPDATE ZORDH_28 SET PM = p_pm WHERE  ono = p_no.
+  IF sy-subrc = 0.
+  WRITE TEXT-000.
+  ELSE.
+  WRITE TEXT-001.
+  ENDIF.
+ENDIF.
+
+- click on run
+
+
+
+
+Now it will take to debuggin scnree
+you will see SY-SUBRC -01as you are the Second  user as you canot lock the order
+- click on desktop3
+
+
+. CALL FUNCTION 'ENQUEUE_EZ_ORDER'         
+ EXPORTING
+   MODE_ZORDH_28       = 'S'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+EXCEPTIONS
+   FOREIGN_LOCK        = 1
+   SYSTEM_FAILURE      = 2
+   OTHERS              = 3
+IF sy-subrc <> 0.
+MESSAGE E000(ZMESSAGE).
+ELSE.
+  UPDATE ZORDH_28 SET PM = p_pm WHERE  ono = p_no.
+  IF sy-subrc = 0.
+  WRITE TEXT-000.
+  ELSE.
+  WRITE TEXT-001.
+  ENDIF.
+ENDIF.
+
+
+
+Varialbe 1  Varialbe 2
+
+P_NO           1
+ SY-SUBRC      1
+
+
+This means another user cannot work on same record.
+
+
+
+
+
+
+
