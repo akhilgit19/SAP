@@ -3233,4 +3233,162 @@ variable
 SY-MSGV1     RMehata
 
 
+To update the message with user id:
+========================================
+
+this step is for sy-subrc <> 0.
+To give the message
+---------------------------
+- /OSE91
+- Messsage Class -ZMESSAGE
+- click on change
+In Messages
+No    Message sort Tex
+0011  The Order Number is already locked by the User &
+- click on save
+- 
+
+Now update this as as such to get the messag as with user name
+
+IF sy-subrc <> 0.
+MESSAGE E000(ZMESSAGE) WITH p_ono .
+ELSE.
+
+
+
+Program:
+
+REPORT ZCHANGE_ORDER_PROGRAM
+
+DATA lv_user(20)  TYPE C.
+
+PARAMETERS p_ono TYPE ZDEONO_28.
+
+PARAMETERS p_pm TYPE ZDEEPM_28.
+
+. CALL FUNCTION 'ENQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'X'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+EXCEPTIONS
+   FOREIGN_LOCK        = 1
+   SYSTEM_FAILURE      = 2
+   OTHERS              = 3
+IF sy-subrc <> 0.
+  lv_user = sy-msgv1.  
+  MESSAGE E000(ZMESSAGE) WITH p_ono lv_user .
+ELSE.
+  UPDATE ZORDH_28 SET PM = p_pm WHERE  ono = p_no.
+  IF sy-subrc = 0.
+  WRITE TEXT-000.
+  ELSE.
+  WRITE TEXT-001.
+  ENDIF.
+ENDIF.
+CALL FUNCTION 'DEQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'X'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+ENDIF.
+
+- save, click on syntax, click on acitvate
+
+- Now go sm12
+Client - 900
+Username - RMETHA
+Table name
+Lock Argument 
+Number of Locks
+click on serach 
+- you will xee -0 lock entries
+
+- Now go back to the program screen
+
+- click on run
+
+To Change the Payment Mode of  scfreen
+Order Nuber -1
+Payment Mode - N
+
+- click on execute
+
+Now it will take to debuggin scnree
+- click on desktop3
+
+
+
+
+Now it will take to debuggin scnree
+you will see SY-SUBRC -01as you are the Second  user as you canot lock the order
+- click on desktop3
+
+
+
+so put a break point( red point called for set/delete breakpoint) at CALL FUNCTION 'ENQUEUE_EZ_ORDER'
+====================================================================================================
+
+- click on f6
+
+. CALL FUNCTION 'ENQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'X'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+EXCEPTIONS
+   FOREIGN_LOCK        = 1
+   SYSTEM_FAILURE      = 2
+   OTHERS              = 3
+IF sy-subrc <> 0.
+  lv_user = sy-msgv1.  
+  MESSAGE E000(ZMESSAGE) WITH p_ono lv_user .
+ELSE.
+  UPDATE ZORDH_28 SET PM = p_pm WHERE  ono = p_no.
+  IF sy-subrc = 0.
+  WRITE TEXT-000.
+  ELSE.
+  WRITE TEXT-001.
+  ENDIF.
+ENDIF.
+CALL FUNCTION 'DEQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'X'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+ENDIF
+
+- you will see on SY- SUBRC will be 0 when you execute
+
+
+- if you loging by by another user RMETHA1
+- when you debug by f6 you can see in the the variable 
+
+Varialbe 1  Varialbe 2
+
+ P_NO           1
+ SY-SUBRC      1
+ SY-MSGV1-      RMEHTA
+LV_USER         RMEHTA
+
+
+
+This means another user cannot work on same record.
+
 
