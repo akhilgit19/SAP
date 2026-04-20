@@ -3938,7 +3938,7 @@ We can navigate to TMG events through SE11 or SE54 transaction code.
 
 
 Step2:
-
+------
 Table Maintenance Generator
 ------------------------------
 - se11
@@ -3975,7 +3975,7 @@ First we shouuld make order date non editable
 
 
 Step1:
-
+------
 - SM30
 - Table - ZORDH_28
 - click on edit
@@ -3988,6 +3988,7 @@ Order NO. Order Date   Payment Md       Total Amd  Currency
 00000001   09.05.2023   CreditCard      100,00      INR
 
 Step2:
+------
 - click on system
 - click on status
 - In Screen Number - 1
@@ -4012,6 +4013,101 @@ uncheck Input Field
 - Table - ZORDH_28
 - click on edit
 - Now you will see order date will be non editable
+
+
+Now Write the Program to the date from system for Order Date
+---------------------------------------------------------------------
+
+Step3:
+------
+Table Maintenance Generator
+------------------------------
+- se11
+- database table ZORDH_28
+- click on change
+- cilck on utitlies, click on table maintenance generator
+- click on Environment-Modification-Events
+- click on green tick
+Display Vie FORM routines to be called form view maintena
+View table       ZORDH_28
+
+Form routines to be called form view maintenance
+   Maint event             FORM routine      Editor
+
+
+- click on new entrie, give main event and form routine
+- You can some any name  for form routine,press enter, You will see editor
+- click on save
+
+Form routines to be called form view maintenance
+   Maint event             FORM routine      Editor
+05 CREATING A NEW ENTRY    GET_ODATE 
+
+- click on editory button
+System will ask creation for include
+- click on green tick
+You will see ABAP Editor Change Include LZORDH_28F01
+
+Step4:
+------
+FORM get_odate.
+ENDFORM.
+
+- Now click on save, check the syntax and activate
+
+Step5: Debuggin
+
+- click on break point (SET/DElete Break point)  at ENDFORM.
+
+FORM get_odate.
+. ENDFORM.
+
+Step5:
+--------
+- SM30
+- Table - ZORDH_28
+- click on edit
+
+Order Header Table
+Order NO. Order Date   Payment Md       Total Amd  Currency
+00000001   09.05.2023   CreditCard      100,00      INR
+00000002   09.05.2023   CreditCard      100,00      INR
+00000003   09.05.2023   CreditCard      100,00      INR
+00000004   09.05.2023   CreditCard      100,00      INR
+
+- Click on New Entries
+Suppose im giving order no 6 and press enter it will direct to dubbuggin screen desktop 3
+Order NO. Order Date   Payment Md       Total Amd  Currency
+6 
+
+-
+ABAP Debugger (3) (Exclosve)
+In Desktop
+Desktip1  Desktop     Desktip3      Standar 
+
+FORM get_odate.
+. ENDFORM.
+
+
+Variable1  Varialb2   locals Globals Auto
+In Variable 1
+
+Variable
+ZORDH_28
+- Give ZORDH_28 in variable and click enter
+- you will see all colmens
+  MANDT
+  ONO 
+  ODATE
+  PM 
+  TA
+  CURR
+
+
+
+
+
+
 
 
 
