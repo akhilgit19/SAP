@@ -3233,10 +3233,13 @@ variable
 SY-MSGV1     RMehata
 
 
+
+
+========================================
 To update the message with user id:
 ========================================
 
-this step is for sy-subrc <> 0.
+This step is for sy-subrc <> 0.
 To give the message
 ---------------------------
 - /OSE91
@@ -3244,20 +3247,20 @@ To give the message
 - click on change
 In Messages
 No    Message sort Tex
-0011  The Order Number is already locked by the User &
+0011  The Order Number & is already locked by the User &
 - click on save
 - 
 
-Now update this as as such to get the messag as with user name
-
+Now update this as as such to get the messag as with user name in the pogram:
+----------------------------------------------------------------------------
 IF sy-subrc <> 0.
 MESSAGE E000(ZMESSAGE) WITH p_ono .
 ELSE.
 
-
+Update above in the program by declaring the variable in the program
 
 Program:
-
+---------
 REPORT ZCHANGE_ORDER_PROGRAM
 
 DATA lv_user(20)  TYPE C.
@@ -3281,7 +3284,7 @@ EXCEPTIONS
    OTHERS              = 3
 IF sy-subrc <> 0.
   lv_user = sy-msgv1.  
-  MESSAGE E000(ZMESSAGE) WITH p_ono lv_user .
+  MESSAGE e000(ZMESSAGE) WITH p_ono lv_user .
 ELSE.
   UPDATE ZORDH_28 SET PM = p_pm WHERE  ono = p_no.
   IF sy-subrc = 0.
@@ -3303,41 +3306,14 @@ ENDIF.
 
 - save, click on syntax, click on acitvate
 
-- Now go sm12
-Client - 900
-Username - RMETHA
-Table name
-Lock Argument 
-Number of Locks
-click on serach 
-- you will xee -0 lock entries
 
-- Now go back to the program screen
-
-- click on run
-
-To Change the Payment Mode of  scfreen
-Order Nuber -1
-Payment Mode - N
-
-- click on execute
-
-Now it will take to debuggin scnree
-- click on desktop3
-
-
-
-
-Now it will take to debuggin scnree
-you will see SY-SUBRC -01as you are the Second  user as you canot lock the order
-- click on desktop3
-
+- Now in the program , click on break point and put near call function of ENQUEUE order.
 
 
 so put a break point( red point called for set/delete breakpoint) at CALL FUNCTION 'ENQUEUE_EZ_ORDER'
 ====================================================================================================
 
-- click on f6
+
 
 . CALL FUNCTION 'ENQUEUE_EZ_ORDER'
  EXPORTING
@@ -3374,10 +3350,65 @@ CALL FUNCTION 'DEQUEUE_EZ_ORDER'
    _COLLECT            =''
 ENDIF
 
-- you will see on SY- SUBRC will be 0 when you execute
+
+- After putting the breakpoint, You can check on entries, 
+
+To check the entries:
+------------------------
+- Now go sm12
+Client - 900
+Username - RMETHA
+Table name
+Lock Argument 
+Number of Locks
+click on serach 
+- you will xee -0 lock entries
+
+- Now go back to the program screen
+--------------------------------------
+- click on run
+
+To Change the Payment Mode of  scfreen
+Order Nuber -1
+Payment Mode - N
+
+- click on execute
+
+Now it will take to debuggin scnree
+- click on desktop3
+
+- click on f6 
+you will see SY-SUBRC -00  as you are the first   user as you are locking the record
+
+- Now if you go to SM12, You will see one lock entriy
+Now go sm12
+Client - 900
+Username - RMETHA
+Table name
+Lock Argument 
+Number of Locks
+click on serach 
+- you will xee -1 lock entries
+LockTim  Client  User   Appli Comp Mode  DIA Count UPD Count Context Backup Table    Lock Argument
+23:53    900    RMEHTA              E      0          1                     ZORDH_28  900000000001
+
+- Now login as different id RMETHA1
+- Put a break point for the same function enqueue order
+- click on run
+
+To Change the Payment Mode of  scfreen
+Order Nuber -1
+Payment Mode - N
+- click on execute
+
+Now it will take to debuggin scnree
+- click on desktop3
+
+- click on f6 
+you will see SY-SUBRC -01  as you are the second   user as it is already by RMETHA
 
 
-- if you loging by by another user RMETHA1
+- as you loging by by another user RMETHA1
 - when you debug by f6 you can see in the the variable 
 
 Varialbe 1  Varialbe 2
@@ -3387,8 +3418,602 @@ Varialbe 1  Varialbe 2
  SY-MSGV1-      RMEHTA
 LV_USER         RMEHTA
 
-
-
 This means another user cannot work on same record.
+
+
+
+
+
+============================================================================
+Lock Objects - Practical Difference of Write Lock and Enhanced Write Lock
+============================================================================
+
+- Step1: First we will  check on  Write Lock, How it changes before that first
+        will check on ehanced lock if it will allow other user or same to change or not 
+        for the firxst time fter 
+--------
+- Go  to SE38
+- program - ZCHANGE_ORDER_PROGRAME 
+- click on chnage
+
+
+REPORT ZCHANGE_ORDER_PROGRAM
+
+DATA lv_user(20)  TYPE C.
+
+PARAMETERS p_ono TYPE ZDEONO_28.
+
+PARAMETERS p_pm TYPE ZDEEPM_28.
+
+. CALL FUNCTION 'ENQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'X'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+EXCEPTIONS
+   FOREIGN_LOCK        = 1
+   SYSTEM_FAILURE      = 2
+   OTHERS              = 3
+IF sy-subrc <> 0.
+  lv_user = sy-msgv1.  
+  MESSAGE e000(ZMESSAGE) WITH p_ono lv_user .
+ELSE.
+  UPDATE ZORDH_28 SET PM = p_pm WHERE  ono = p_no.
+  IF sy-subrc = 0.
+  WRITE TEXT-000.
+  ELSE.
+  WRITE TEXT-001.
+  ENDIF.
+ENDIF.
+CALL FUNCTION 'DEQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'X'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+ENDIF.
+
+
+Step2: Click on check syntax, Click on activate, click on save
+------
+
+Step3: Put a break point
+-------
+
+- Now in the program , click on break point and put near call function of ENQUEUE order.
+
+so put a break point( red point called for set/delete breakpoint) at CALL FUNCTION 'ENQUEUE_EZ_ORDER'
+====================================================================================================
+
+
+. CALL FUNCTION 'ENQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'X'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+EXCEPTIONS
+   FOREIGN_LOCK        = 1
+   SYSTEM_FAILURE      = 2
+   OTHERS              = 3
+IF sy-subrc <> 0.
+  lv_user = sy-msgv1.  
+  MESSAGE E000(ZMESSAGE) WITH p_ono lv_user .
+ELSE.
+  UPDATE ZORDH_28 SET PM = p_pm WHERE  ono = p_no.
+  IF sy-subrc = 0.
+  WRITE TEXT-000.
+  ELSE.
+  WRITE TEXT-001.
+  ENDIF.
+ENDIF.
+CALL FUNCTION 'DEQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'X'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+ENDIF
+
+
+- After putting the breakpoint, You can check on entries, 
+
+To check the entries:
+------------------------
+- Now go sm12
+Client - 900
+Username - RMETHA
+Table name
+Lock Argument 
+Number of Locks
+click on serach 
+- you will xee -0 lock entries
+
+
+
+Step4: Run the progam
+------
+
+- Now go back to the program screen
+--------------------------------------
+- click on run
+
+To Change the Payment Mode of  scfreen
+Order Nuber -1
+Payment Mode - N
+
+- click on execute
+Now it will take to debuggin scnree
+- click on desktop3
+
+- click on f6 
+you will see SY-SUBRC -00  as you are the first   user as you are locking the record
+
+
+- Now if you go to SM12, You will see one lock entriy
+Now go sm12
+Client - 900
+Username - RMETHA
+Table name
+Lock Argument 
+Number of Locks
+click on serach 
+- you will xee -1 lock entries
+LockTim  Client  User   Appli Comp Mode  DIA Count UPD Count Context Backup Table    Lock Argument
+23:53    900    RMEHTA              x      0          1                     ZORDH_28  900000000001
+
+
+
+Step5:
+------
+- Now in other session
+
+- Now login as different id RMETHA1
+- Put a break point for the same function enqueue order
+- click on run
+
+To Change the Payment Mode of  screen
+Order Nuber -1
+Payment Mode - N
+- click on execute
+
+Now it will take to debuggin scnree
+- click on desktop3
+- click on f6 
+you will see SY-SUBRC -01  as it is already locked  and cnnot be locked more than once
+
+
+- as even  youare loging by same user RMETHA alos 
+- when you debug by f6 you can see in the the variable messages
+
+
+Notes:
+-------
+Enhanced Write lock can be requested only once from the same transaction and can not be processed successively.
+
+Write lock can be requested several times from the same transaction and are processed successively.
+
+- Now we will see the difference
+
+
+Step6: login as RMETHA only
+-----
+ Repeat the steps but change to write lock E instead of X  enhanced lock 
+ Repeat the Enqueu lock for multiple locks 
+
+- Go  to SE38
+- program - ZCHANGE_ORDER_PROGRAME 
+- click on chnage
+
+
+REPORT ZCHANGE_ORDER_PROGRAM
+
+DATA lv_user(20)  TYPE C.
+
+PARAMETERS p_ono TYPE ZDEONO_28.
+
+PARAMETERS p_pm TYPE ZDEEPM_28.
+
+
+. CALL FUNCTION 'ENQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'E'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+EXCEPTIONS
+   FOREIGN_LOCK        = 1
+   SYSTEM_FAILURE      = 2
+   OTHERS              = 3
+
+
+ CALL FUNCTION 'ENQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'E'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+EXCEPTIONS
+   FOREIGN_LOCK        = 1
+   SYSTEM_FAILURE      = 2
+   OTHERS              = 3
+IF sy-subrc <> 0.
+  lv_user = sy-msgv1.  
+  MESSAGE e000(ZMESSAGE) WITH p_ono lv_user .
+ELSE.
+  UPDATE ZORDH_28 SET PM = p_pm WHERE  ono = p_no.
+  IF sy-subrc = 0.
+  WRITE TEXT-000.
+  ELSE.
+  WRITE TEXT-001.
+  ENDIF.
+ENDIF.
+CALL FUNCTION 'DEQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'E'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+ENDIF.
+
+
+Step7: Click on check syntax, Click on activate, click on save
+------
+
+Step8: Put a break point
+-------
+
+- Now in the program , click on break point and put near call function of ENQUEUE order.
+
+so put a break point( red point called for set/delete breakpoint) at CALL FUNCTION 'ENQUEUE_EZ_ORDER'
+====================================================================================================
+
+
+. CALL FUNCTION 'ENQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'E'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+EXCEPTIONS
+   FOREIGN_LOCK        = 1
+   SYSTEM_FAILURE      = 2
+   OTHERS              = 3
+
+
+  CALL FUNCTION 'ENQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'E'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+EXCEPTIONS
+   FOREIGN_LOCK        = 1
+   SYSTEM_FAILURE      = 2
+   OTHERS              = 3
+IF sy-subrc <> 0.
+  lv_user = sy-msgv1.  
+  MESSAGE E000(ZMESSAGE) WITH p_ono lv_user .
+ELSE.
+  UPDATE ZORDH_28 SET PM = p_pm WHERE  ono = p_no.
+  IF sy-subrc = 0.
+  WRITE TEXT-000.
+  ELSE.
+  WRITE TEXT-001.
+  ENDIF.
+ENDIF.
+CALL FUNCTION 'DEQUEUE_EZ_ORDER'
+ EXPORTING
+   MODE_ZORDH_28       = 'X'
+   MANDT               = SY-MANDT
+   ONO                 = p_ono  
+   X_NO                =''
+   _SCOPE              ='2'
+   _WAIT               =''
+   _COLLECT            =''
+ENDIF
+
+
+- After putting the breakpoint, You can check on entries, 
+
+To check the entries:
+------------------------
+- Now go sm12
+Client - 900
+Username - RMETHA
+Table name
+Lock Argument 
+Number of Locks
+click on serach 
+- you will xee -0 lock entries
+
+
+
+Step9: Run the progam
+------
+
+- Now go back to the program screen
+- click on run
+
+To Change the Payment Mode of  scfreen
+Order Nuber -1
+Payment Mode - D
+
+- click on execute
+Now it will take to debuggin screen
+- click on desktop3
+
+- click on f6 
+you will see SY-SUBRC -00  as you are the first   user as you are locking the record
+
+- If you see the entries
+
+- Now go sm12
+Client - 900
+Username - RMETHA
+Table name
+Lock Argument 
+Number of Locks
+click on serach 
+- you will xee -1 lock entries
+LockTim  Client  User   Appli Comp Mode  DIA Count UPD Count Context Backup Table    Lock Argument
+23:53    900    RMEHTA              E      0          1                     ZORDH_28  900000000001
+
+- Now go back to the progam
+- click on F6
+you will see SY-SUBRC -00  agaain though you are locking same transaction
+
+- Now if you see the counter it wll be UPD Count 2
+
+- Now go sm12
+Client - 900
+Username - RMETHA
+Table name
+Lock Argument 
+Number of Locks
+click on serach 
+- you will xee -1 lock entries
+LockTim  Client  User   Appli Comp Mode  DIA Count UPD Count Context Backup Table    Lock Argument
+23:53    900    RMEHTA              E      0          2                     ZORDH_28  900000000001
+
+
+
+
+- Now change the write lock to enhanced write lock
+- E to X
+- 
+- Now go back to the program screen change E to X
+- click on run
+
+To Change the Payment Mode of  scfreen
+Order Nuber -1
+Payment Mode - D
+
+- click on execute
+Now it will take to debuggin screen
+- click on desktop3
+
+- click on f6 
+you will see SY-SUBRC -00  as you are the first   user as you are locking the record
+
+- If you see the entries
+
+- Now go sm12
+Client - 900
+Username - RMETHA
+Table name
+Lock Argument 
+Number of Locks
+click on serach 
+- you will xee -1 lock entries
+LockTim  Client  User   Appli Comp Mode  DIA Count UPD Count Context Backup Table    Lock Argument
+23:53    900    RMEHTA              X      0          1                     ZORDH_28  900000000001
+
+- Now back to SE38
+- click on F6
+you will see SY-SUBRC -01  as you have multiple loks  and will not be supported by Enhanced write lock
+
+=======================
+Lock Objects - Allow RFC
+========================
+
+Step1: 
+-------
+- /OSE37
+- Function Module - ENQUEUE_EZ_ORDER
+- click on display
+- click on Attributes
+- Proeccing Type
+. Regular function Module
+ Remote- Enabled Module
+
+Same way if you check for Deque
+
+- Function Module - DEQUEUE_EZ_ORDER
+- click on display
+- click on Attributes
+- Proeccing Type
+. Regular function Module
+  Remote- Enabled Module
+
+If the function module procesing type is regular function module,
+then it can only execute/call in this particular system only
+
+If you need allow external system then you need to allow RFC enabled
+ RFC- Remote Function Call
+
+Step2: Enable RFC
+------
+- go to /nse11
+- lock object - S EZ_ORDER
+- click on change
+Dictionary: Change lock Object
+Lock object: EZ_Order
+Short Description: Lock Object for Order Number
+- click on Attributes
+Last chanded: RMETHA 14.03,2024
+Package: $TMP
+Original language: EN
+- Allow RFC
+
+Step3:
+------- 
+ Now go to function Moudle for ENqueue and DEqueue, You can see now remote enabled module as processing tyope
+
+- /OSE37
+- Function Module - ENQUEUE_EZ_ORDER
+- click on display
+- click on Attributes
+- Proeccing Type
+  Regular function Module
+ . Remote- Enabled Module
+
+ AND  for  DEQUEUE_EZ_ORDER
+
+- Function Module - DEQUEUE_EZ_ORDER
+- click on display
+- click on Attributes
+- Proeccing Type
+   Regular function Module
+.  Remote- Enabled Module
+
+========================================
+Table Maintenance Generator Events Part1
+=======================================
+
+Table Maintenance Generator(TMG) Events
+
+1.Event is always triggered by a specific action or a specific occurrence(when a particular time has been reached).
+
+2.The example of specific actions are mouse click, pressing a key etc. The example of specific occurrence is running out of memory etc.
+
+3.The same concept of events is applicable to TMG events. Some events trigger by specific user action and some events trigger at specific occurrence. 
+
+Step1:
+------
+- SM30
+- Table - ZORDH_28
+- click on edit
+
+Order Header Table
+Order NO. Order Date   Payment Md       Total Amd  Currency
+00000001   09.05.2023   CreditCard      100,00      INR
+00000001   09.05.2023   CreditCard      100,00      INR
+00000001   09.05.2023   CreditCard      100,00      INR
+00000001   09.05.2023   CreditCard      100,00      INR
+
+- If you a click to save it;s an event
+
+Depends upon the requirement, we can add our own custom code using these TMG events.
+We can navigate to TMG events through SE11 or SE54 transaction code.
+       (Utilities-Table Maintenance Generator-Environment-Modification-Events)    
+
+
+Step2:
+
+Table Maintenance Generator
+------------------------------
+- se11
+- database table ZORDH_28
+- click on change
+- cilck on utitlies, click on table maintenance generator
+- click on Environment-Modification-Events
+- click on green tick
+Display Vie FORM routines to be called form view maintena
+View table       ZORDH_28
+
+Form routines to be called form view maintenance
+   Maint event             FORM routine
+
+
+or
+
+- /nse54 
+- table view ZORDH_28
+- Choose events
+- click on display create
+Display Vie FORM routines to be called form view maintena
+View table       ZORDH_28
+
+Form routines to be called form view maintenance
+   Maint event             FORM routine
+
+========================================
+Table Maintenance Generator Events Part2
+=======================================
+
+Requirement: Order should automatically appeared as system date:
+First we shouuld make order date non editable
+
+
+Step1:
+
+- SM30
+- Table - ZORDH_28
+- click on edit
+
+Order Header Table
+Order NO. Order Date   Payment Md       Total Amd  Currency
+00000001   09.05.2023   CreditCard      100,00      INR
+00000001   09.05.2023   CreditCard      100,00      INR
+00000001   09.05.2023   CreditCard      100,00      INR
+00000001   09.05.2023   CreditCard      100,00      INR
+
+Step2:
+- click on system
+- click on status
+- In Screen Number - 1
+  click on double click on the screen number
+- you wiill see this screen
+Screen Painter: Display Screen for spalzordh_28
+- CLICK ON Change mode
+- click on layout button
+
+you wille see screen painter 
+
+Order NO:   Order Date      Payment Md    Total Amt     Currency
+
+- double click on orderdate column , a pop window wil lopne
+- click on program
+uncheck Input Field
+- Now it will become non editiable
+- close the screen painter
+- Now activate, now save, click on back button
+
+- SM30
+- Table - ZORDH_28
+- click on edit
+- Now you will see order date will be non editable
+
+
+
 
 
