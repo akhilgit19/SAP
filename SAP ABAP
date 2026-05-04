@@ -1,0 +1,84 @@
+Variable/const:
+=====================
+
+Variable        Const
+
+a=1          g=9.8m/s
+a=2          
+a=3
+a=5
+
+Variable- Memory location to store 
+          some values.
+
+Data types:
+================
+a = -1,2,3- numerical
+   a,b,c-- alphannumericals
+   $,@--- symbols
+  
+Data type:
+
+
+Practical Program:
+=====================
+- double click on server
+
+client- 800
+user-
+password
+logon language- EN
+
+
+Command Transaction Code- SE38
+
+- Program - Zakhil 
+- click on create
+- Title- my first program
+- type- executable program
+- click on save
+- click on local object
+
+
+REPORT ZAKHIL.
+*decleration.
+*data a type i. 
+*data b type i.
+PARAMETER a type i DEFAULT 20 OBLIGATORY,
+          b type i DEFAULT 30.
+data c type i.
+
+*data: a type i, b type i, c type i."chain operator.
+
+
+*a=2.  "assignment.
+*b=3.
+c= a+b.
+*write : 'addition of two numbers' color3 ,c color 1.
+
+format color 3.
+write : 'addition of two numbers' ,c .
+write / 'karunakar'.
+format color off.
+
+- click on syntax check,
+- click on goto, click on text elements, click on  selection texts
+Name     Text
+A        enter 1ST Number
+B        enter 2nd number
+- click on active button
+- click on f8 or click on run
+
+Screen- List processing screen
+
+A -- 20
+B -- 30
+
+click on execute
+
+resul -50
+
+
+
+
+
