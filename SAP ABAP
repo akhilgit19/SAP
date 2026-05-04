@@ -79,6 +79,138 @@ click on execute
 resul -50
 
 
+Standard Object:
+-----------------
+-SAP
+
+Custom Objects
+-----------------
+Z Objects
 
 
+Package: 
+----------
+to transport the code from one envrionment to another enviroment
+
+
+local object = $ tmp package
+
+
+Transaction codes:
+----------------------------
+-/ose11 ( current session will not exit and it willl open new session
+-/nse24 ( overrites the session)
+
+
+Command Transaction Code- SE38
+
+- Program - Zakhil 
+- click on create
+- Title- sum of programs
+- type- executable program
+- click on save
+- click on local object
+
+REPORT ZAKHIL.
+data : v1 type i value 30, 
+       v2 type i value 20.
+write : v1 LEFT-JUSTIFIED,
+        V2 CENTERED.
+uline.
+date: v3(20) type c, 
+      v4(20) type c.
+v1 ='akhilfjdsaf'
+v2='adsfaidf'
+write: v3 RIGHT-JUSTIFIED,
+       v4 RIGHT-JUSTIFIED.
+uline.
+data :  v5 type string,
+        v6 type string.
+v5= 'parvaothanen'
+v6 ='
+- click on active button
+- click on f8 or click on run
+
+To see the dumps
+- /ose22
+- 0.7.022222
+- click on the latest log you can see the dump
+-
+
+
+
+Note: by default charc variables give 1
+ by default int variables give 0
+
+
+
+
+
+
+Command Transaction Code- SE38
+
+- Program - ZAKHIL
+- subobject- sourcecoce
+- click on create
+- Title- to desing radio butoob,
+- type- executable program
+- click on save
+- click on local object
+
+REPORT ZAKHIL .
+data v_vres type i.
+PARAMETERS: p_x type i default 20,
+            p_y type i default 10.
+PARAMETERS: p_r1 RADIOBUTTON GROUP grp1,
+            p_r2 RADIOBUTTON GROUP grp1,
+            p_r3 RADIOBUTTON GROUP grp1,
+            p_r4 RADIOBUTTON GROUP grp1,
+         
+.If p_r1 = 'X'.
+   v_res =px+ p_y.
+   write "sum of two numers is '.
+   ELSEIF p_r2 ='X'.
+   v_res =px-p_y.
+   write 'sub of two numers is'.
+   ELSE IF p_r3 ='X'.
+   v_res =px*p_y.
+  write 'mul of two numers is.
+   ELESEIF p_r4 = 'X'.
+   v_res =px/p_y.
+  wirte 'div of two numers is'.
+  endif.
+
+- click on syntax check,
+- click on goto, click on text elements, click on  selection texts
+Name     Text
+p_r1    ADDITION
+p_r2    SUBSTRACTION
+p_r3    PRODUCT
+p_r4    DIVISION
+
+A        enter 1ST Number
+B        enter 2nd number
+- click on active button
+- click on f8 or click on run
+
+Screen- List processing screen
+
+A -- 20
+B -- 30
+0 ADDITION
+0 SUBSTRACTION
+0 PRODUCT
+0 DIVISION
+
+click on execute
+
+- To debug
+- put . before the line
+- click on run
+- it will take to desktop 3
+- select the lines hover on the variables you can see the value
+- f5 or of6  going forwrad
+- click on f7 till you get the output.
+
+1:10:22
 
