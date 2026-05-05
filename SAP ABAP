@@ -159,13 +159,29 @@ Command Transaction Code- SE38
 
 REPORT ZAKHIL .
 data v_vres type i.
-PARAMETERS: p_x type i default 20,
-            p_y type i default 10.
+SELECTION-SCREEN begin of block bk1 with frame title t1.
+SELECTION-SCREEN begin of line.
+SELECTION-SCREEN COMMENT 8(20) lb1.
+PARAMETERS: p_x type i default 20.
+SELECTION-SCREEN end of line.
+SELECTION-SCREEN begin of line.
+SELECTION-SCREEN COMMENT 8(20) lb2.
+PARAMETERS: p_y type i default 10.
+SELECTION-SCREEN end of line.
+SELECTION-SCREEN ebd of block bk1.
+
+*PARAETERS: P_C1 AS CHECKBOX,
+            P_C2 AS CHECKBOX, 
+            P_C3 AS CHECKBOX,
+            P_C4 AS CHECKBOX.
+
+SELECTION-SCREEN begin of block bk2 with frame title t2.
 PARAMETERS: p_r1 RADIOBUTTON GROUP grp1,
             p_r2 RADIOBUTTON GROUP grp1,
-            p_r3 RADIOBUTTON GROUP grp1,
+            p_r3 RADIOBUTTON GROUP grp1 DEFAULT 'X',
             p_r4 RADIOBUTTON GROUP grp1,
-         
+SELECTION-SCREEN ebd of block bk2.
+
 .If p_r1 = 'X'.
    v_res =px+ p_y.
    write "sum of two numers is '.
@@ -179,6 +195,11 @@ PARAMETERS: p_r1 RADIOBUTTON GROUP grp1,
    v_res =px/p_y.
   wirte 'div of two numers is'.
   endif.
+INTTIALIZATION.
+lb1 ='ENTER FIRST NUMBER'.
+lb2 ='ENTER SECOND NUMBER'.
+T1='INPUT FIELDS'.
+T2='OPERATIOS'.
 
 - click on syntax check,
 - click on goto, click on text elements, click on  selection texts
@@ -187,16 +208,22 @@ p_r1    ADDITION
 p_r2    SUBSTRACTION
 p_r3    PRODUCT
 p_r4    DIVISION
+p_X     ?
+P_Y      ?
 
-A        enter 1ST Number
-B        enter 2nd number
+
 - click on active button
 - click on f8 or click on run
 
 Screen- List processing screen
 
-A -- 20
-B -- 30
+INPUT FILEDS
+---------------------
+       ENTER FIRST NUMBER          20
+       ENTER SECOND NUMBER         1O
+
+OPERATIONS
+---------------------
 0 ADDITION
 0 SUBSTRACTION
 0 PRODUCT
@@ -213,4 +240,55 @@ click on execute
 - click on f7 till you get the output.
 
 1:10:22
+
+
+
+
+
+Command Transaction Code- SE38
+
+- Program - ZAKHIL5
+- subobject- sourcecoce
+- click on create
+- Title- to desing radio butoob,
+- type- executable program
+- click on save
+- click on local object
+
+
+REPORT ZAKHIL5
+WRITE: 'LOGIN USERNAME',SY-UZEIT.
+MESSAGE 'OPEARATIN FAIL' TYPE'E'.
+MESSAGE 'OPEARATIN SUCESSFUL' TYPE'I'.
+MESSAGE 'OPEARATIN Fail' TYPE'X'.
+
+PARAMETERS: P_A TYPE I DEFAULT 20.
+PARAMETERS: P_B TYPE I DEFAULT 20.
+PARAMETERS: P_C TYPE I DEFAULT 20.
+SELECTION-SCREEN SKIP 2.
+SELECTION-SCREEN PUSHBUTTON 6(12) B1 USER-COMMAND FC1.
+
+INITIALIZATION.
+B1 ='ADDITION'.
+CLEAR P_C.
+AT SELECTION-SCREEN
+IF SY-UCOMM ='FC1'.
+   P_C =P_A+P_B.
+   ENDIF.
+
+
+- click on syntax check,
+- click on goto, click on text elements, click on  selection texts
+Name     Text
+P_A      Enter 1st Number
+P_b      Enter 2st Number
+P_C      Result
+- click on save and acitvate
+- click on run
+
+In Selection Screen
+
+
+ENTER 1ST NUMBER      20
+ENTER 1ST NUMBER      20
 
